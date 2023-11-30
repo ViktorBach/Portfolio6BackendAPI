@@ -79,8 +79,6 @@ app.get('/cafes/search', (req,res)=>{
         });
 });
 
-
-
 //Create new user
 app.post('/new/user',(req,res)=>{
     const firstname = req.body.firstname;
