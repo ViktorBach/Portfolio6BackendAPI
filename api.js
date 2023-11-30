@@ -32,7 +32,7 @@ app.get('/users',(req, res)=>{
 });
 
 //Get user by user_id
-app.get('/users/:user_id', (req,res)=>{
+app.get('/user/:user_id', (req,res)=>{
     const user_id = req.params.user_id;
     connection.query('SELECT * FROM users WHERE user_id = ?',
         [user_id],
@@ -42,7 +42,7 @@ app.get('/users/:user_id', (req,res)=>{
 });
 
 //Get cafe by cafe_id
-app.get('/cafes/search/:cafe_id', (req,res)=>{
+app.get('/cafe/:cafe_id', (req,res)=>{
     const cafe_id = req.params.cafe_id;
     connection.query('SELECT * FROM cafes WHERE cafe_id = ?',
         [cafe_id],
@@ -69,6 +69,7 @@ app.get('/details/:cafe_id', (req,res)=>{
 });
 
 //Search cafes by city
+//Search example: /cafes/search?city=København
 app.get('/cafes/search', (req,res)=>{
     const city = req.query.city;
 
