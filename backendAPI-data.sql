@@ -87,7 +87,7 @@ Mange sidder her hele dagen, da der er studievenlige priser på både kaffe, mad
                       (11, '11:00', '22:00', 'København S', 'Holmbladsgade 15', '$$$', 1, 'Hos Nr. 15 Køkken & Bar kan du nyde såvel en lækker brunch eller morgenmad som delikate frokostretter og et solidt aftensmåltid – selvfølgelig også i vegetariske versioner. Caféen har massere af plads med baglokaler som er mere lukkede for at arbejde eller studere i fred.'),
                       (12, '10:00', '19:00', 'Espergærde', 'Mørdrupvej 1A', '$$$', 0, 'Hos Café Divino kan du få lækker italiensk kaffe mens du nyder udsigten over Øresund. Der er massere af små borde hvor du kan sidde med en computer, både inde og ude.'),
                       (13, '07:00', '17:30', 'Roskilde', 'Penselstrøget 44', '$$', 1, 'MØRK er et lokalt økologisk kafferisteri med fokus på kvalitet og bæredygtighed. Hvis man prioritere god kaffe, ville dette være den oplagte café for en studerende.'),
-                      (14, '10:00', '19:00', 'Svendbord', 'Gerritsgade 18B', '$', 1, 'Friskbagte kager og boller med kvalitetskaffe ved siden af. De studievenlige priser gør dette til et populært sted for studerende.'),
+                      (14, '10:00', '19:00', 'Svendborg', 'Gerritsgade 18B', '$', 1, 'Friskbagte kager og boller med kvalitetskaffe ved siden af. De studievenlige priser gør dette til et populært sted for studerende.'),
                       (15, '10:00', '18:00', 'Aarhus', 'Ryesgade 28', '$', 1, 'RS28 er en moderne kaffebar i Århus. Priserne gør caféen til et populært samlested for de mange studerende i Århus.');
 
 -- -----------------------------------------------------
