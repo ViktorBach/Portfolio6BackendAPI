@@ -60,24 +60,12 @@ ul li {
     cursor: pointer;
 }
 
-.login-email {
-    margin-bottom: 8px;
-}
-
-.login-password {
+input {
     margin-bottom: 8px;
 }
 
 .login-button {
     margin-left: 60px;
-}
-
-.create-email {
-    margin-bottom: 8px;
-}
-
-.create-password {
-    margin-bottom: 8px;
 }
 
 .create-button {

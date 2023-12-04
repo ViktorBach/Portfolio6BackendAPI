@@ -93,5 +93,48 @@ Mange sidder her hele dagen, da der er studievenlige priser på både kaffe, mad
 SELECT * FROM details;
 
 
+/* Tilføjet email og password til users */
+DROP TABLE favorites;
+
+DROP TABLE users;
+
+CREATE TABLE users(
+user_id INTEGER auto_increment primary key,
+user_firstname VARCHAR(50),
+user_lastname VARCHAR(50),
+user_email VARCHAR(50),
+user_password VARCHAR(50)
+);
+
+INSERT INTO users(user_firstname, user_lastname, user_email, user_password)
+VALUES
+    ('Christine', 'Tofft', 'christinetofft17@gmail.com', 'cafekode123'),
+    ('Lucas', 'Jacobsen', 'lukas.jakobsen@mail.dk', 'lukasKode22'),
+    ('Rasmus', 'Planteig', 'planteig.rasmus@yahoo.dk', 'rasmuskodningcafe'),
+    ('Christian', 'Thellefsen', 'christhel@mail.com', 'espergærde'),
+    ('Natazja', 'Rosenkjær', 'natazjarose@hotmail.dk', 'balou112'),
+    ('Sofie', 'Thorlund', 'sofiethorlund@outlook.com', 'fck2001');
+
+CREATE TABLE favorites(
+user_id INTEGER,
+cafe_id INTEGER,
+foreign key (user_id) references users(user_id),
+foreign key (cafe_id) references cafes(cafe_id)
+);
+
+INSERT INTO favorites(user_id, cafe_id)
+VALUES
+	(1, 1),
+    (2, 8),
+    (3, 4),
+    (4, 9),
+    (5, 3),
+    (6, 12);
+
+SELECT * FROM favorites;
+
+SELECT * FROM users;
+
+
 
 
