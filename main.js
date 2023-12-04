@@ -51,3 +51,12 @@ signupButton.addEventListener('click', function() {
     pressSignup = !pressSignup;
 });
 
+okButton.addEventListener('click', function (){
+    window.location.href = 'cafelist.html';
+    //if email & password blablabla
+});
+
+createButton.addEventListener('click', function (){
+    window.location.href = 'cafelist.html';
+    //if email not in use blabla
+})
