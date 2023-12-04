@@ -82,8 +82,8 @@ app.get('/cafes/search', (req,res)=>{
 
 //Create new user
 app.post('/new/user',(req,res)=>{
-    const firstname = req.body.firstname;
-    const lastname = req.body.lastname;
+    const firstname = req.body.user_firstname;
+    const lastname = req.body.user_lastname;
 
     connection.query(
         'INSERT INTO `users` (user_firstname, user_lastname) VALUES (?,?)',
@@ -96,8 +96,8 @@ app.post('/new/user',(req,res)=>{
 
 //Create new cafe
 app.post('/new/cafe',(req,res)=>{
-    const name = req.body.name;
-    const city = req.body.city;
+    const name = req.body.cafe_name;
+    const city = req.body.cafe_city;
 
     connection.query(
         'INSERT INTO `cafes` (cafe_name, cafe_city) VALUES (?,?)',
