@@ -12,9 +12,9 @@ app.use(express.json());
 const connection = mysql.createConnection({
     host: 'localhost',
     port: '3306',
-    user: 'root',
-    password: 'Fwu58kca',
-    database: 'cafe_finder'
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE
 });
 
 //Get all cafes
