@@ -101,13 +101,22 @@ app.post('/new/cafe',(req,res)=>{
     const name = req.body.cafe_name;
     const city = req.body.cafe_city;
 
-    connection.query(
-        'INSERT INTO `cafes` (cafe_name, cafe_city) VALUES (?,?)',
-        [name, city],
-        function (error, results) {
-            res.send(results)
+    connection.query('SELECT * FROM cafes WHERE cafe_name = ?',
+    [name],
+        (error, results) => {
+        if (error) {
+            res.status(500).send.error.message
+        } else if (results.length > 0) {
+            res.status(418).send('Error: Values already exist in table');
+        } else {
+            connection.query(
+                'INSERT INTO `cafes` (cafe_name, cafe_city) VALUES (?,?)',
+                [name, city],
+                function (error, results) {
+                    res.send(results)
+                });
         }
-    )
+    });
 });
 
 //Add details to the new cafe
