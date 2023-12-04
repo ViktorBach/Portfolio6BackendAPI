@@ -7,7 +7,9 @@ cafe_city VARCHAR(100)
 CREATE TABLE users(
 user_id INTEGER auto_increment primary key,
 user_firstname VARCHAR(50),
-user_lastname VARCHAR(50)
+user_lastname VARCHAR(50),
+user_email VARCHAR(50),
+user_password VARCHAR(50)
 );
 
 CREATE TABLE favorites(
