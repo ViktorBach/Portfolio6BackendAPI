@@ -48,6 +48,16 @@ ul li {
     font-size: 14px;
 }
 
+#cafe-list {
+    margin: 10px;
+    padding: 16px;
+    border-radius: 6px;
+    background-color: white;
+    border-color: #43291f;
+    color: #43291f;
+    font-size: 14px;
+}
+
 .log-in:hover, .log-in:active {
     background-color: #43291f;
     color: white;
@@ -55,6 +65,12 @@ ul li {
 }
 
 .sign-up:hover, .sign-up:active {
+    background-color: #43291f;
+    color: white;
+    cursor: pointer;
+}
+
+#cafe-list:hover, #cafe-list:active {
     background-color: #43291f;
     color: white;
     cursor: pointer;

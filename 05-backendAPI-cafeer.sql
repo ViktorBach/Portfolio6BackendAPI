@@ -1,8 +1,8 @@
 CREATE TABLE cafes(
-cafe_id INTEGER auto_increment primary key, 
+cafe_id INTEGER auto_increment primary key,
 cafe_name VARCHAR(100),
 cafe_city VARCHAR(100)
-); 
+);
 
 CREATE TABLE users(
 user_id INTEGER auto_increment primary key,
@@ -13,16 +13,16 @@ user_password VARCHAR(50)
 );
 
 CREATE TABLE favorites(
-user_id INTEGER, 
+user_id INTEGER,
 cafe_id INTEGER,
 foreign key (user_id) references users(user_id),
 foreign key (cafe_id) references cafes(cafe_id)
-); 
+);
 
 CREATE TABLE details(
-cafe_id INTEGER, 
+cafe_id INTEGER,
 opening_hours VARCHAR(50),
-address VARCHAR(100), 
+address VARCHAR(100),
 price_range VARCHAR(5),
 wifi VARCHAR(3),
 info VARCHAR(500)
@@ -46,9 +46,9 @@ VALUES
     ('MØRK risteri & kaffebar', 'Roskilde'),
     ('BRØD', 'Svendborg'),
     ('RS28 Kaffebar', 'Århus');
-    
+
 SELECT * from cafes;
-    
+
 INSERT INTO users(user_firstname, user_lastname)
 VALUES
     ('Christine', 'Tofft'),
@@ -57,9 +57,9 @@ VALUES
     ('Christian', 'Thellefsen'),
     ('Natazja', 'Rosenkjær'),
     ('Sofie', 'Thorlund');
-    
+
 SELECT * from users;
-    
+
 INSERT INTO favorites(user_id, cafe_id)
 VALUES
 	(1, 1),
@@ -72,8 +72,8 @@ VALUES
 SELECT * FROM favorites;
 
 INSERT INTO details(cafe_id, opening_hours, address, price_range, wifi, info)
-VALUES 
-	(1, '10:00 - 17:00', 'Fiolstræde 12, København K', '$$', 'JA', 'Paludan Bogcafé er et strålende sted at starte eksamenslæsningen. Her er gratis wifi, udsøgt kaffe og ikke mindst en smuk indretning, hvor du har mulighed for at sidde blandt gamle bogreoler, der bidrager til en helt særlig stemning. 
+VALUES
+	(1, '10:00 - 17:00', 'Fiolstræde 12, København K', '$$', 'JA', 'Paludan Bogcafé er et strålende sted at starte eksamenslæsningen. Her er gratis wifi, udsøgt kaffe og ikke mindst en smuk indretning, hvor du har mulighed for at sidde blandt gamle bogreoler, der bidrager til en helt særlig stemning.
 Mange sidder her hele dagen, da der er studievenlige priser på både kaffe, mad og andre lækkerier.'),
     (2, '11:30 - 19:00', 'Ravnsborggade 10B, København N', '$', 'JA', 'Denne café ligger på Ravnsborggade på Nørrebro, og her er der lagt op til, at du benytter stedet som arbejdsrum i dagstimerne. Hvis du bliver hængende til aftentid, kan du opleve caféens aften set-up med mad, stearinlys, musik og fest.'),
     (3, '09:00 - 18:00', 'Ryesgade 76, København Ø', '$$$', 'JA', 'Her kan du nyde alt fra en frisk brygget kop kaffe eller nippe til et glas af din yndlingsvin, alt dette kan gøres imens du nyder en af deres lækre sandwiches eller kager.'),
