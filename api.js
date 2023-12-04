@@ -87,10 +87,16 @@ app.post('/new/user',(req,res)=>{
     const email = req.body.user_email;
     const password = req.body.user_password;
 
+    const q = 'INSERT INTO `users` (user_firstname, user_lastname, user_email, user_password) VALUES (?,?,?,?)';
+
     connection.query(
-        'INSERT INTO `users` (user_firstname, user_lastname, user_email, user_password) VALUES (?,?,?,?)',
+        q,
         [firstname, lastname, email, password],
         function (error, results) {
+            if(error){
+                console.log(error)
+            }
+
             res.send(results)
         }
     )
