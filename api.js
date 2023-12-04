@@ -82,12 +82,14 @@ app.get('/cafes/search', (req,res)=>{
 
 //Create new user
 app.post('/new/user',(req,res)=>{
-    const firstname = req.body.user_firstname;
-    const lastname = req.body.user_lastname;
+    const firstname = req.body.firstname;
+    const lastname = req.body.lastname;
+    const email = req.body.email;
+    const password = req.body.password;
 
     connection.query(
-        'INSERT INTO `users` (user_firstname, user_lastname) VALUES (?,?)',
-        [firstname, lastname],
+        'INSERT INTO `users` (user_firstname, user_lastname, user_email, user_password) VALUES (?,?,?,?)',
+        [firstname, lastname, email, password],
         function (error, results) {
             res.send(results)
         }
