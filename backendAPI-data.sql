@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `cafe_finder`.`cafes` (
   `cafe_name` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`cafe_id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 16
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `cafe_finder`.`users` (
   PRIMARY KEY (`user_id`),
   UNIQUE INDEX `user_email_UNIQUE` (`user_email` ASC) VISIBLE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 7
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
