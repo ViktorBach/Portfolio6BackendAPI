@@ -10,8 +10,8 @@ const createEmail = document.querySelector('.create-email');
 const createPassword = document.querySelector('.create-password')
 const createButton = document.querySelector('.create-button');
 
-//Display login input when button pressed
 
+//Display login input when button is pressed
 let pressLogin = true;
 
 loginButton.addEventListener('click', function() {
@@ -29,6 +29,7 @@ loginButton.addEventListener('click', function() {
     pressLogin = !pressLogin;
 });
 
+//Display sign up input when button is pressed
 let pressSignup = true;
 
 signupButton.addEventListener('click', function() {
@@ -49,3 +50,4 @@ signupButton.addEventListener('click', function() {
     }
     pressSignup = !pressSignup;
 });
+
