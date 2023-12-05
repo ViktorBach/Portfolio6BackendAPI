@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Cafe Liste</title>
+    <link rel="stylesheet" href="cafelist.css">
 </head>
 <body>
 <main>
@@ -13,7 +14,7 @@
     </section>
     <section class="filters">
         <!-- Opening Hours Filter -->
-        <label for="openingHours">Opening Hours:</label>
+        <label for="openingHours">Åbningstid:</label>
         <select id="openingHours">
             <option value="7:00">7:00</option>
             <option value="8:00">8:00</option>
@@ -28,7 +29,7 @@
 
 
         <!-- Closing Hours Filter -->
-        <label for="closingHours">Closing Hours:</label>
+        <label for="closingHours">Lukketid:</label>
         <select id="closingHours">
             <option value="16:00">16:00</option>
             <option value="17:00">17:00</option>
@@ -41,7 +42,7 @@
         </select>
 
         <!-- City Filter -->
-        <label for="city">City:</label>
+        <label for="city">Lokation:</label>
         <select id="city">
             <option value="København K">København K</option>
             <option value="København N">København N</option>
@@ -60,7 +61,7 @@
         </select>
 
         <!-- Price Range Filter -->
-        <label for="priceRange">Price Range:</label>
+        <label for="priceRange">Pris:</label>
         <select id="priceRange">
             <option value="$">$</option>
             <option value="$$">$$</option>
@@ -72,7 +73,7 @@
         <input type="checkbox" id="wifi">
 
         <!-- List of Places (to be filtered) -->
-        <h2>List of Places</h2>
+        <h2>Liste af cafeer</h2>
         <ul id="placesList">
             <!-- Add your list items here -->
         </ul>
