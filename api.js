@@ -62,6 +62,33 @@ app.post('/login', (req, res) => {
         })
 })
 
+// Create new user
+app.post('/createuser', (req, res) => {
+    const firstname = req.body.firstname;
+    const lastname = req.body.lastname;
+    const email = req.body.email;
+    const password = req.body.password;
+
+    // Query the database, check if email exist
+    connection.query('SELECT * FROM users WHERE user_email = ?',
+        [email],
+        (error, results) => {
+            if (results.length > 0) {
+                console.log("Email exist")
+                res.send(false);
+            } else {
+                console.log("Email available, creating account");
+                connection.query('INSERT INTO cafe_finder.users (user_firstname, user_lastname, user_email, user_password) ' +
+                    'VALUES (?, ?, ?, ?)',
+                    [firstname, lastname, email, password],
+                    (error, results) => {
+                        console.log("User created")
+                        res.send(true);
+                    })
+            }
+        })
+})
+
 //Get cafe by cafe_id
 app.get('/cafe/:cafe_id', (req,res)=>{
     const cafeId = req.params.cafe_id;

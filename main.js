@@ -57,7 +57,7 @@ okButton.addEventListener('click', function() {
     const loginObject = {
         email: loginEmail.value,
         password: loginPassword.value
-    }
+    };
 
     fetch(
         `http://localhost:3000/login`,
@@ -81,7 +81,31 @@ okButton.addEventListener('click', function() {
         })
 })
 
+// Create new user
 createButton.addEventListener('click', function (){
-    window.location.href = 'cafelist.html';
-    //if email not in use blabla
+    const createAccountObject = {
+        firstname: createFirstname.value,
+        lastname: createLastname.value,
+        email: createEmail.value,
+        password: createPassword.value
+    };
+
+    fetch(
+        `http://localhost:3000/createuser`,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(createAccountObject)
+        }
+    )
+        .then(response => response.json())
+        .then(data => {
+            if (!data) {
+                console.log("Email already in use");
+            } else {
+                console.log("Account successfully created! You can now login!");
+            }
+        })
 })
