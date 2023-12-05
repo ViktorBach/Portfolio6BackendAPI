@@ -71,7 +71,7 @@ okButton.addEventListener('click', function() {
     )
         .then(response => response.json())
         .then(data => {
-            if (data.length > 0) {
+            if (data) {
                 const user = data[0].user_firstname;
                 console.log("Logged in! Welcome " + user);
                 window.location.href = 'cafelist.html';
