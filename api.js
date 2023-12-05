@@ -62,8 +62,8 @@ app.post('/login', (req, res) => {
 
                 if (isPasswordCorrect) {
                     const user = results[0].user_email;
-                    console.log("User logged in" + user);
-                    res.send(true);
+                    console.log("User logged in: " + user);
+                    res.send([true, results[0].user_firstname]);
                 } else {
                     console.log("Password not matching");
                     res.send(false);
