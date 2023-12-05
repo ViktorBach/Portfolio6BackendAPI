@@ -51,10 +51,35 @@ signupButton.addEventListener('click', function() {
     pressSignup = !pressSignup;
 });
 
-okButton.addEventListener('click', function (){
-    window.location.href = 'cafelist.html';
-    //if email & password blablabla
-});
+
+// Login user
+okButton.addEventListener('click', function() {
+    const loginObject = {
+        email: loginEmail.value,
+        password: loginPassword.value
+    }
+
+    fetch(
+        `http://localhost:3000/login`,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(loginObject)
+        }
+    )
+        .then(response => response.json())
+        .then(data => {
+            if (data.length > 0) {
+                const user = data[0].user_firstname;
+                console.log("Logged in! Welcome " + user);
+                window.location.href = 'cafelist.html';
+            } else {
+                console.log("Invalid Email and/or Password!")
+            }
+        })
+})
 
 createButton.addEventListener('click', function (){
     window.location.href = 'cafelist.html';

@@ -8,6 +8,7 @@ const port = 3000;
 
 app.use(express());
 app.use(express.json());
+app.use(cors());
 
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -40,6 +41,26 @@ app.get('/user/:user_id', (req,res)=>{
             res.send(results);
         });
 });
+
+// Login user check
+app.post('/login', (req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+
+    // Query the database, checking if email and password match
+    connection.query('SELECT * FROM users WHERE user_email = ? AND user_password = ?',
+        [email, password],
+        (error, results) => {
+            if (results.length > 0) {
+                const user = results[0].user_email;
+                console.log("User logged in" + user);
+                res.send(results);
+            } else {
+                console.log("Login attempt was made, but no matching user/password found");
+                res.send(results);
+            }
+        })
+})
 
 //Get cafe by cafe_id
 app.get('/cafe/:cafe_id', (req,res)=>{
