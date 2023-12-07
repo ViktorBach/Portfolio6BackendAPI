@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=Nanum+Myeongjo&family=Special+Elite&display=swap');
+
+*{
+    font-family: 'Special Elite', 'sans-serif';
+    color: #43291f;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+    margin-top: 150px;
+    margin-bottom: 60px;
+}
+
+.intro p {
+    margin-left: 400px;
+    margin-right: 400px;
+    display: flex;
+    justify-content: center;
+}
+.share {
+    margin-bottom: 50px;
+}
+
+.create-new-cafe {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.create-new-cafe input,
+.create-new-cafe label {
+    margin-bottom: 12px;
+}
+
+.create-new-cafe input{
+    margin-right: 20px;
+    margin-left: 2px;
+    padding: 4px;
+}
+
+.name-and-address,
+.city,
+.hours,
+.price,
+.wifi,
+.info {
+    width: 100%;
+    max-width: 600px;
+}
+
+#cafe-open, #cafe-close, #cafe-price {
+    width: 100%;
+    max-width: 40px;
+}
+
+#cafe-city {
+    width: 100%;
+    max-width: 140px;
+}
+
+#cafe-wifi {
+    margin-bottom: 30px;
+}
+
+#cafe-info {
+    width: 100%;
+    max-width: 500px;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 6px;
+    background-color: white;
+    border-color: #43291f;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: #43291f;
+    color: white;
+}

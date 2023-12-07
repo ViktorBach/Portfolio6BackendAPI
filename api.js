@@ -195,26 +195,72 @@ app.post('/new/user',(req,res)=>{
 
 //Create new cafe
 app.post('/new/cafe',(req,res)=>{
-    const name = req.body.cafe_name;
+    const name = req.body.name;
+    const openingHours = req.body.open;
+    const closingHours = req.body.close;
+    const city = req.body.city;
+    const address = req.body.address;
+    const priceRange = req.body.price;
+    const wifi = req.body.wifi;
+    const info = req.body.info;
 
-    connection.query('SELECT * FROM cafes WHERE cafe_name = ?',
+    //Check if name of cafe already exists:
+    connection.query('SELECT * FROM cafes WHERE cafe_name = ?', [name], (error, results) => {
+        if (results.length > 0) {
+            console.log("The Cafe already exists");
+            res.send(false);
+        } else {
+            console.log("Creating cafe now!");
+            connection.query(
+                'INSERT INTO `cafes` (cafe_name) VALUES (?)',
+                [name],
+                (error, results) => {
+                    if (error) {
+                        throw error;
+                    }
+                    res.send(error);
+
+                    connection.query(
+                        'SELECT * FROM cafes WHERE cafe_name = ?',
+                        [name],
+                        (error, results) => {
+                            const cafeId = results[0].cafe_id;
+                            connection.query(
+                                'INSERT INTO `details` (cafe_id, opening_hours, closing_hours, city, address, price_range, wifi, info) VALUES (?,?,?,?,?,?,?,?)',
+                                [cafeId, openingHours, closingHours, city, address, priceRange, wifi, info],
+                                (error, results) => {
+                                    if (error) {
+                                        throw error;
+                                    }
+                                    res.send(error);
+                                })
+                        }
+                    );
+                }
+            );
+        }
+    });
+});
+   /* connection.query('SELECT * FROM cafes WHERE cafe_name = ?'),
         [name],
         (error, results) => {
-            if (error) {
-                res.status(500).send.error.message
-            } else if (results.length > 0) {
-                res.status(418).send('Error: Values already exist in table');
+            if (results.length > 0) {
+                console.log("The Cafe already exist")
+                res.send(false);
             } else {
+                console.log("Creating cafe now!")
                 connection.query(
                     'INSERT INTO `cafes` (cafe_name) VALUES (?)',
                     [name],
+                    'INSERT INTO `details` (opening_hours, closing_hours, city, address, price_range, wifi, info) VALUES (?,?,?,?,?,?,?)',
+                        [openingHours, closingHours, city, address, priceRange, wifi, info],
                     function (error, results) {
                         res.send(results)
-                    });
+                    }
+                )}
             }
-        });
-});
-
+        })
+*/
 //Add details to the new cafe
 app.post('/new/details',(req,res)=>{
     const cafeId = req.body.cafe_id;
