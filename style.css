@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: white;
+    background-color: #f5efe8;
 }
 h1 {
     display: flex;
@@ -32,7 +32,7 @@ ul li {
     margin: 10px;
     padding: 16px;
     border-radius: 6px;
-    background-color: white;
+    background-color: #f5efe8;
     border-color: #43291f;
     color: #43291f;
     font-size: 14px;
@@ -42,7 +42,7 @@ ul li {
     margin: 10px;
     padding: 16px;
     border-radius: 6px;
-    background-color: white;
+    background-color: #f5efe8;
     border-color: #43291f;
     color: #43291f;
     font-size: 14px;
@@ -50,13 +50,13 @@ ul li {
 
 .log-in:hover, .log-in:active {
     background-color: #43291f;
-    color: white;
+    color: #f5efe8;
     cursor: pointer;
 }
 
 .sign-up:hover, .sign-up:active {
     background-color: #43291f;
-    color: white;
+    color: #f5efe8;
     cursor: pointer;
 }
 
@@ -77,4 +77,5 @@ input {
     margin-top: -50px;
     width: 400px;
     height: 400px;
+    position: fixed;
 }

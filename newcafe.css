@@ -4,6 +4,9 @@
     font-family: 'Special Elite', 'sans-serif';
     color: #43291f;
 }
+body {
+    background-color: #f5efe8;
+}
 
 h1 {
     display: flex;

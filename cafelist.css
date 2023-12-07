@@ -1,8 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=Nanum+Myeongjo&family=Special+Elite&display=swap');
+
+* {
+    font-family: 'Special Elite', 'sans-serif';
+    color: #43291f;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f5efe8;
+}
+
+nav {
+    width: 100%;
+    height: 75px;
+    line-height: 75px;
+    padding: 0 100px;
+    background-color: #f5efe8;
+}
+
+nav .logo p{
+    font-size: 30px;
+    font-weight: bold;
+    float: left;
+    color: #43291f;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+}
+
+nav img {
+    width: 50px;
+    height: 50px;
+    margin-right: 12px;
+    margin-top: 4px;
+    float: left;
+}
+nav ul {
+    float: right;
+}
+nav li {
+    display: inline-block;
+    list-style: none;
+}
+nav li a {
+    font-size: 18px;
+    text-transform: uppercase;
+    padding: 0 30px;
+    color: #43291f;
+    text-decoration: none;
+}
+
 .mainContent {
     display: flex;
     flex-direction: row;
 }
 
+.intro {
+margin-top: 40px
+}
 .filters {
     display: flex;
     flex-direction: column;
