@@ -98,7 +98,8 @@ CREATE TABLE IF NOT EXISTS `cafe_finder`.`users` (
   `user_firstname` VARCHAR(50) NULL DEFAULT NULL,
   `user_lastname` VARCHAR(50) NULL DEFAULT NULL,
   `user_email` VARCHAR(45) NOT NULL,
-  `user_password` VARCHAR(45) NOT NULL,
+  `user_password` VARCHAR(256) NOT NULL,
+  `user_salt` VARCHAR(256) NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE INDEX `user_email_UNIQUE` (`user_email` ASC) VISIBLE)
 ENGINE = InnoDB
@@ -107,13 +108,13 @@ DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 -- Add table data
-INSERT INTO `users` (`user_firstname`, `user_lastname`, `user_email`, `user_password`)
-             VALUES ('Christine', 'Tofft', 'christine@tofft.dk', 'password123'),
-                    ('Lucas', 'Jacobsen', 'lucasjacobsen@mail.com', 'superPassWord'),
-                    ('Rasmus', 'Planteig', 'rasmusplateig@mail.dk', '123456'),
-                    ('Christian', 'Thellefsen', 'christiansmail@supermail.net', 'fourwordsalluppercase'),
-                    ('Natazja', 'Rosenkjær', 'natazja@minmail.dk', 'secretpassword321'),
-                    ('Sofie', 'Thorlund', 'sofie@thorlund.dk', 'hemmelig123');
+-- INSERT INTO `users` (`user_firstname`, `user_lastname`, `user_email`, `user_password`)
+--             VALUES ('Christine', 'Tofft', 'christine@tofft.dk', 'password123'),
+--                    ('Lucas', 'Jacobsen', 'lucasjacobsen@mail.com', 'superPassWord'),
+--                    ('Rasmus', 'Planteig', 'rasmusplateig@mail.dk', '123456'),
+--                    ('Christian', 'Thellefsen', 'christiansmail@supermail.net', 'fourwordsalluppercase'),
+--                    ('Natazja', 'Rosenkjær', 'natazja@minmail.dk', 'secretpassword321'),
+--                    ('Sofie', 'Thorlund', 'sofie@thorlund.dk', 'hemmelig123');
 
 -- -----------------------------------------------------
 -- Table `cafe_finder`.`favorites`
@@ -136,14 +137,14 @@ DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 -- Add table data
-INSERT INTO `favorites` (`user_id`, `cafe_id`)
-                 VALUES (1, 1),
-                        (2, 8),
-                        (3, 4),
-                        (4, 9),
-                        (5, 3),
-                        (6, 12),
-                        (2, 3);
+-- INSERT INTO `favorites` (`user_id`, `cafe_id`)
+--                 VALUES (1, 1),
+--                        (2, 8),
+--                        (3, 4),
+--                        (4, 9),
+--                        (5, 3),
+--                        (6, 12),
+--                        (2, 3);
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

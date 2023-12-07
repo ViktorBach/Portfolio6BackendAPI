@@ -2,6 +2,10 @@ const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
 
+// Bcrypt, used for hashing and salting user passwords for security
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
 const app = express();
 const port = 3000;
 
@@ -45,19 +49,28 @@ app.get('/user/:user_id', (req,res)=>{
 // Login user check
 app.post('/login', (req, res) => {
     const email = req.body.email;
-    const password = req.body.password;
+    const enteredPassword = req.body.password;
 
     // Query the database, checking if email and password match
-    connection.query('SELECT * FROM users WHERE user_email = ? AND user_password = ?',
-        [email, password],
+    connection.query('SELECT * FROM users WHERE user_email = ?',
+        [email],
         (error, results) => {
             if (results.length > 0) {
-                const user = results[0].user_email;
-                console.log("User logged in" + user);
-                res.send(results);
+                const salt = results[0].user_salt;
+                const hashedPassword = results[0].user_password;
+                const isPasswordCorrect = bcrypt.compareSync(enteredPassword + salt, hashedPassword);
+
+                if (isPasswordCorrect) {
+                    const user = results[0].user_email;
+                    console.log("User logged in: " + user);
+                    res.send([true, results[0].user_firstname]);
+                } else {
+                    console.log("Password not matching");
+                    res.send(false);
+                }
             } else {
-                console.log("Login attempt was made, but no matching user/password found");
-                res.send(results);
+                console.log("Login attempt was made, but no matching email found");
+                res.send(false);
             }
         })
 })
@@ -67,7 +80,13 @@ app.post('/createuser', (req, res) => {
     const firstname = req.body.firstname;
     const lastname = req.body.lastname;
     const email = req.body.email;
-    const password = req.body.password;
+
+    // Salt and Hash password
+    const rawPassword = req.body.password;
+    const salt = bcrypt.genSaltSync(saltRounds);
+    const hashedPassword = bcrypt.hashSync(rawPassword + salt, saltRounds);
+
+    console.log(req.body);
 
     // Query the database, check if email exist
     connection.query('SELECT * FROM users WHERE user_email = ?',
@@ -78,11 +97,12 @@ app.post('/createuser', (req, res) => {
                 res.send(false);
             } else {
                 console.log("Email available, creating account");
-                connection.query('INSERT INTO cafe_finder.users (user_firstname, user_lastname, user_email, user_password) ' +
-                    'VALUES (?, ?, ?, ?)',
-                    [firstname, lastname, email, password],
+                connection.query('INSERT INTO cafe_finder.users (user_firstname, user_lastname, user_email, user_password, user_salt) ' +
+                    'VALUES (?, ?, ?, ?, ?)',
+                    [firstname, lastname, email, hashedPassword, salt],
                     (error, results) => {
                         console.log("User created")
+                        console.log(results);
                         res.send(true);
                     })
             }

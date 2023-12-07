@@ -71,9 +71,8 @@ okButton.addEventListener('click', function() {
     )
         .then(response => response.json())
         .then(data => {
-            if (data.length > 0) {
-                const user = data[0].user_firstname;
-                console.log("Logged in! Welcome " + user);
+            if (data[0]) {
+                console.log("Logged in! Welcome " + data[1]);
                 window.location.href = 'cafelist.html';
             } else {
                 console.log("Invalid Email and/or Password!")
