@@ -2,10 +2,6 @@ const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
 
-// Bcrypt, used for hashing and salting user passwords for security
-const bcrypt = require('bcrypt');
-const saltRounds = 10;
-
 const app = express();
 const port = 3000;
 
@@ -49,28 +45,19 @@ app.get('/user/:user_id', (req,res)=>{
 // Login user check
 app.post('/login', (req, res) => {
     const email = req.body.email;
-    const enteredPassword = req.body.password;
+    const password = req.body.password;
 
     // Query the database, checking if email and password match
-    connection.query('SELECT * FROM users WHERE user_email = ?',
-        [email],
+    connection.query('SELECT * FROM users WHERE user_email = ? AND user_password = ?',
+        [email, password],
         (error, results) => {
             if (results.length > 0) {
-                const salt = results[0].user_salt;
-                const hashedPassword = results[0].user_password;
-                const isPasswordCorrect = bcrypt.compareSync(enteredPassword + salt, hashedPassword);
-
-                if (isPasswordCorrect) {
-                    const user = results[0].user_email;
-                    console.log("User logged in: " + user);
-                    res.send([true, results[0].user_firstname]);
-                } else {
-                    console.log("Password not matching");
-                    res.send(false);
-                }
+                const user = results[0].user_email;
+                console.log("User logged in" + user);
+                res.send(results);
             } else {
-                console.log("Login attempt was made, but no matching email found");
-                res.send(false);
+                console.log("Login attempt was made, but no matching user/password found");
+                res.send(results);
             }
         })
 })
@@ -80,13 +67,7 @@ app.post('/createuser', (req, res) => {
     const firstname = req.body.firstname;
     const lastname = req.body.lastname;
     const email = req.body.email;
-
-    // Salt and Hash password
-    const rawPassword = req.body.password;
-    const salt = bcrypt.genSaltSync(saltRounds);
-    const hashedPassword = bcrypt.hashSync(rawPassword + salt, saltRounds);
-
-    console.log(req.body);
+    const password = req.body.password;
 
     // Query the database, check if email exist
     connection.query('SELECT * FROM users WHERE user_email = ?',
@@ -97,12 +78,11 @@ app.post('/createuser', (req, res) => {
                 res.send(false);
             } else {
                 console.log("Email available, creating account");
-                connection.query('INSERT INTO cafe_finder.users (user_firstname, user_lastname, user_email, user_password, user_salt) ' +
-                    'VALUES (?, ?, ?, ?, ?)',
-                    [firstname, lastname, email, hashedPassword, salt],
+                connection.query('INSERT INTO cafe_finder.users (user_firstname, user_lastname, user_email, user_password) ' +
+                    'VALUES (?, ?, ?, ?)',
+                    [firstname, lastname, email, password],
                     (error, results) => {
                         console.log("User created")
-                        console.log(results);
                         res.send(true);
                     })
             }
@@ -201,14 +181,21 @@ app.post('/new/cafe',(req,res)=>{
     const city = req.body.city;
     const address = req.body.address;
     const priceRange = req.body.price;
-    const wifi = req.body.wifi;
+    let wifi = req.body.wifi;
+    if(wifi === 'on'){
+        wifi = 1
+    }  else {
+        wifi = 0
+    }
     const info = req.body.info;
-
+    console.log(name)
+    console.log(openingHours)
+    console.log(closingHours)
     //Check if name of cafe already exists:
     connection.query('SELECT * FROM cafes WHERE cafe_name = ?', [name], (error, results) => {
         if (results.length > 0) {
             console.log("The Cafe already exists");
-            res.send(false);
+            res.json(false);
         } else {
             console.log("Creating cafe now!");
             connection.query(
@@ -217,9 +204,8 @@ app.post('/new/cafe',(req,res)=>{
                 (error, results) => {
                     if (error) {
                         throw error;
+                        res.json(error);
                     }
-                    res.send(error);
-
                     connection.query(
                         'SELECT * FROM cafes WHERE cafe_name = ?',
                         [name],
@@ -231,8 +217,10 @@ app.post('/new/cafe',(req,res)=>{
                                 (error, results) => {
                                     if (error) {
                                         throw error;
+                                        res.json(error);
                                     }
-                                    res.send(error);
+
+                                    res.json(true);
                                 })
                         }
                     );
@@ -241,26 +229,7 @@ app.post('/new/cafe',(req,res)=>{
         }
     });
 });
-   /* connection.query('SELECT * FROM cafes WHERE cafe_name = ?'),
-        [name],
-        (error, results) => {
-            if (results.length > 0) {
-                console.log("The Cafe already exist")
-                res.send(false);
-            } else {
-                console.log("Creating cafe now!")
-                connection.query(
-                    'INSERT INTO `cafes` (cafe_name) VALUES (?)',
-                    [name],
-                    'INSERT INTO `details` (opening_hours, closing_hours, city, address, price_range, wifi, info) VALUES (?,?,?,?,?,?,?)',
-                        [openingHours, closingHours, city, address, priceRange, wifi, info],
-                    function (error, results) {
-                        res.send(results)
-                    }
-                )}
-            }
-        })
-*/
+
 //Add details to the new cafe
 app.post('/new/details',(req,res)=>{
     const cafeId = req.body.cafe_id;

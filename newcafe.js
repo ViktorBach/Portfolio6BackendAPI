@@ -8,6 +8,8 @@ const newCafeClose = document.querySelector('#cafe-close');
 const newCafePrice = document.querySelector('#cafe-price');
 const newCafeWifi = document.querySelector('#cafe-wifi');
 const newCafeInfo = document.querySelector('#cafe-info');
+const createButton = document.querySelector('.create-cafe');
+
 createButton.addEventListener('click', function (){
     const createCafeObject = {
         name: newCafeName.value,
@@ -19,6 +21,7 @@ createButton.addEventListener('click', function (){
         wifi: newCafeWifi.value,
         info: newCafeInfo.value
     };
+    console.log(createCafeObject);
     fetch(
         `http://localhost:3000/new/cafe`,
         {
