@@ -71,13 +71,16 @@ okButton.addEventListener('click', function() {
     )
         .then(response => response.json())
         .then(data => {
-            if (data[0]) {
-                console.log("Logged in! Welcome " + data[1]);
-                window.location.href = 'cafelist.html';
+            if (data.success) {
+                console.log("Logged in! Welcome " + data.name);
+                window.location.href = './cafelist.html';
             } else {
-                console.log("Invalid Email and/or Password!")
+                console.log("Login failed. Reason: " + data.message);
             }
         })
+        .catch(error => {
+            console.error('Error: ', error.message);
+        });
 })
 
 // Create new user
@@ -101,10 +104,10 @@ createButton.addEventListener('click', function (){
     )
         .then(response => response.json())
         .then(data => {
-            if (!data) {
-                console.log("Email already in use");
+            if (data.success) {
+                console.log(data.message);
             } else {
-                console.log("Account successfully created! You can now login!");
+                console.log(data.message);
             }
         })
 })
