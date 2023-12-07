@@ -150,11 +150,6 @@ app.get('/listfilter',(req,res) =>{
     const location = req.query.city;
     const price = req.query.price_range;
     const wifi = req.query.wifi;
-    console.log(open);
-    console.log(close);
-    console.log(location);
-    console.log(price);
-    console.log(wifi);
 
     connection.query('SELECT * FROM details WHERE opening_hours = ? AND closing_hours = ? AND city = ? AND price_range = ? AND wifi = ?',
         [open, close, location, price, wifi],
@@ -165,6 +160,17 @@ app.get('/listfilter',(req,res) =>{
             res.send(result)
         }
     });
+});
+
+app.get('/details', (req, res) => {
+    connection.query('SELECT * FROM details',
+        (error, results) => {
+        if (error) {
+            res.status(500).send.error.message
+        } else {
+            res.send(results)
+        }
+        });
 });
 
 //Search cafes by city
