@@ -1,15 +1,21 @@
+// Import libraries / middleware
 const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
 
+// Bcrypt, used for hashing and salting user passwords for security
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
 const app = express();
 const port = 3000;
 
-
+// Use library stuff
 app.use(express());
 app.use(express.json());
 app.use(cors());
 
+// MySQL server connection
 const connection = mysql.createConnection({
     host: 'localhost',
     port: '3306',
@@ -45,45 +51,67 @@ app.get('/user/:user_id', (req,res)=>{
 // Login user check
 app.post('/login', (req, res) => {
     const email = req.body.email;
-    const password = req.body.password;
+    const enteredPassword = req.body.password;
 
     // Query the database, checking if email and password match
-    connection.query('SELECT * FROM users WHERE user_email = ? AND user_password = ?',
-        [email, password],
+    connection.query('SELECT * FROM users WHERE user_email = ?',
+        [email],
         (error, results) => {
-            if (results.length > 0) {
-                const user = results[0].user_email;
-                console.log("User logged in" + user);
-                res.send(results);
-            } else {
-                console.log("Login attempt was made, but no matching user/password found");
-                res.send(results);
+            if (error) {
+                console.error("Database error: ", error);
+                return res.status(500).json({success: false, message: "Internal server error"});
             }
-        })
-})
+
+            if (results.length > 0) {
+                const salt = results[0].user_salt;
+                const hashedPassword = results[0].user_password;
+                const isPasswordCorrect = bcrypt.compareSync(enteredPassword + salt, hashedPassword);
+
+                if (isPasswordCorrect) {
+                    console.log("User logged in: " + results[0].user_email);
+                    return res.status(200).json({success: true, email: results[0].user_email, name: results[0].user_firstname});
+                } else {
+                    console.log("Login attempt was made, but password don't match");
+                    return res.status(401).json({success: false, message: "Invalid email or password"});
+                }
+            } else {
+                console.log("Login attempt was made, but no matching email found");
+                return res.status(401).json({success: false, message: "Invalid email or password"});
+            }
+        });
+});
 
 // Create new user
 app.post('/createuser', (req, res) => {
     const firstname = req.body.firstname;
     const lastname = req.body.lastname;
     const email = req.body.email;
-    const password = req.body.password;
+
+    // Salt and Hash password
+    const rawPassword = req.body.password;
+    const salt = bcrypt.genSaltSync(saltRounds);
+    const hashedPassword = bcrypt.hashSync(rawPassword + salt, saltRounds);
 
     // Query the database, check if email exist
     connection.query('SELECT * FROM users WHERE user_email = ?',
         [email],
         (error, results) => {
+            if (error) {
+                console.error("Database error: ", error);
+                return res.status(500).json({success: false, message: "Internal server error"});
+            }
+
             if (results.length > 0) {
-                console.log("Email exist")
-                res.send(false);
+                console.log("Account creation attempt was made with: " + email + ", but email already exists in DB")
+                return res.status(409).json({success: false, message: "Email is already in use"});
             } else {
-                console.log("Email available, creating account");
-                connection.query('INSERT INTO cafe_finder.users (user_firstname, user_lastname, user_email, user_password) ' +
-                    'VALUES (?, ?, ?, ?)',
-                    [firstname, lastname, email, password],
+                console.log("Email available: " + email + ", creating account");
+                connection.query('INSERT INTO cafe_finder.users (user_firstname, user_lastname, user_email, user_password, user_salt) ' +
+                    'VALUES (?, ?, ?, ?, ?)',
+                    [firstname, lastname, email, hashedPassword, salt],
                     (error, results) => {
                         console.log("User created")
-                        res.send(true);
+                        return res.status(200).json({success: true, message: "Account successfully created - you can now login!"});
                     })
             }
         })
