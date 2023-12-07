@@ -12,71 +12,76 @@
 
         <h1>Lad os hjælpe dig med at finde den perfekte café til dine behov!</h1>
     </section>
-    <section class="filters">
-        <!-- Opening Hours Filter -->
-        <label for="openingHours">Åbningstid:</label>
-        <select id="openingHours">
-            <option value="7:00">7:00</option>
-            <option value="8:00">8:00</option>
-            <option value="8:30">8:30</option>
-            <option value="9:00">9:00</option>
-            <option value="9:30">9:30</option>
-            <option value="10:00">10:00</option>
-            <option value="11:00">11:00</option>
-            <option value="11:30">11:30</option>
-            <option value="12:00">12:00</option>
-        </select>
+    <section class="mainContent">
+        <div class="filters">
+            <!-- Opening Hours Filter -->
+            <label for="openingHours">Åbningstid:</label>
+            <select id="openingHours">
+                <option value="7:00">7:00</option>
+                <option value="8:00">8:00</option>
+                <option value="8:30">8:30</option>
+                <option value="9:00">9:00</option>
+                <option value="9:30">9:30</option>
+                <option value="10:00">10:00</option>
+                <option value="11:00">11:00</option>
+                <option value="11:30">11:30</option>
+                <option value="12:00">12:00</option>
+            </select>
 
 
-        <!-- Closing Hours Filter -->
-        <label for="closingHours">Lukketid:</label>
-        <select id="closingHours">
-            <option value="16:00">16:00</option>
-            <option value="17:00">17:00</option>
-            <option value="17:30">17:30</option>
-            <option value="18:00">18:00</option>
-            <option value="18:30">18:30</option>
-            <option value="19:00">19:00</option>
-            <option value="20:00">20:00</option>
-            <option value="22:00">22:00</option>
-        </select>
+            <!-- Closing Hours Filter -->
+            <label for="closingHours">Lukketid:</label>
+            <select id="closingHours">
+                <option value="16:00">16:00</option>
+                <option value="17:00">17:00</option>
+                <option value="17:30">17:30</option>
+                <option value="18:00">18:00</option>
+                <option value="18:30">18:30</option>
+                <option value="19:00">19:00</option>
+                <option value="20:00">20:00</option>
+                <option value="22:00">22:00</option>
+            </select>
 
-        <!-- City Filter -->
-        <label for="city">Lokation:</label>
-        <select id="city">
-            <option value="København K">København K</option>
-            <option value="København N">København N</option>
-            <option value="København Ø">København Ø</option>
-            <option value="København V">København V</option>
-            <option value="Odense">Odense</option>
-            <option value="Aarhus">Aarhus</option>
-            <option value="Aalborg">Aalborg</option>
-            <option value="Kolding">Kolding</option>
-            <option value="Helsingør">Helsingør</option>
-            <option value="Hillerød">Hillerød</option>
-            <option value="København S">København S</option>
-            <option value="Espergærde">Espergærde</option>
-            <option value="Roskilde">Roskilde</option>
-            <option value="Svendborg">Svendborg</option>
-        </select>
+            <!-- City Filter -->
+            <label for="city">Lokation:</label>
+            <select id="city">
+                <option value="København K">København K</option>
+                <option value="København N">København N</option>
+                <option value="København Ø">København Ø</option>
+                <option value="København V">København V</option>
+                <option value="Odense">Odense</option>
+                <option value="Aarhus">Aarhus</option>
+                <option value="Aalborg">Aalborg</option>
+                <option value="Kolding">Kolding</option>
+                <option value="Helsingør">Helsingør</option>
+                <option value="Hillerød">Hillerød</option>
+                <option value="København S">København S</option>
+                <option value="Espergærde">Espergærde</option>
+                <option value="Roskilde">Roskilde</option>
+                <option value="Svendborg">Svendborg</option>
+            </select>
 
-        <!-- Price Range Filter -->
-        <label for="priceRange">Pris:</label>
-        <select id="priceRange">
-            <option value="$">$</option>
-            <option value="$$">$$</option>
-            <option value="$$$">$$$</option>
-        </select>
+            <!-- Price Range Filter -->
+            <label for="priceRange">Pris:</label>
+            <select id="priceRange">
+                <option value="$">$</option>
+                <option value="$$">$$</option>
+                <option value="$$$">$$$</option>
+            </select>
 
-        <!-- Wi-Fi Filter -->
-        <label for="wifi">Wi-Fi:</label>
-        <input type="checkbox" id="wifi">
+            <!-- Wi-Fi Filter -->
+            <label for="wifi">Wi-Fi:</label>
+            <select id="wifi">
+                <option value="1">Ja</option>
+                <option value="0">Nej</option>
+            </select>
 
-        <!-- List of Places (to be filtered) -->
-        <h2>Liste af cafeer</h2>
-        <ul id="placesList">
-            <!-- Add your list items here -->
-        </ul>
+            <!-- List of Places (to be filtered) -->
+            <h2>Liste af cafeer</h2>
+            <ul class="cafeList">
+
+            </ul>
+        </div>
     </section>
 </main>
 

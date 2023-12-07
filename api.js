@@ -136,6 +136,29 @@ app.get('/details/:cafe_id', (req,res)=>{
         });
 });
 
+app.get('/listfilter',(req,res) =>{
+    const open = req.query.opening_hours;
+    const close = req.query.closing_hours;
+    const location = req.query.city;
+    const price = req.query.price_range;
+    const wifi = req.query.wifi;
+    console.log(open);
+    console.log(close);
+    console.log(location);
+    console.log(price);
+    console.log(wifi);
+
+    connection.query('SELECT * FROM details WHERE opening_hours = ? AND closing_hours = ? AND city = ? AND price_range = ? AND wifi = ?',
+        [open, close, location, price, wifi],
+        (error, result) => {
+        if (error) {
+            res.status(500).send.error.message
+        } else {
+            res.send(result)
+        }
+    });
+});
+
 //Search cafes by city
 //Search example: /cafes/search?city=København
 app.get('/cafes/search', (req,res)=>{
