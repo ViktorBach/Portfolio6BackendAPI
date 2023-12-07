@@ -66,6 +66,7 @@ h1 {
 #cafe-info {
     width: 100%;
     max-width: 500px;
+    margin-top: 6px;
 }
 
 button {
