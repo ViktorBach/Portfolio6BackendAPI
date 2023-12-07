@@ -1,5 +1,5 @@
 const filters = document.querySelectorAll('select');
-const cafelist = document.querySelector(".cafeList");
+const cafeList = document.querySelector(".cafe-list");
 filters.forEach(filter => {
     filter.addEventListener('change', function() {
         const open = document.querySelector("#openingHours").value
@@ -18,11 +18,17 @@ filters.forEach(filter => {
                     console.log("no cafe returned");
                 }
 
-                cafelist.innerHTML = '';
+                cafeList.innerHTML = '';
 
                 if (data.length > 0) {
+
                     const firstCafe = data[0]
+
+                    const cafeContainer = document.createElement('div');
+                    cafeContainer.classList.add('cafe-container');
+
                     const cafeInfoElement = document.createElement('div');
+                    cafeInfoElement.classList.add('cafe-info');
                     cafeInfoElement.innerHTML = `
                     <p>Opening Hours: ${firstCafe.opening_hours}</p>
                     <p>Closing Hours: ${firstCafe.closing_hours}</p>
@@ -33,7 +39,9 @@ filters.forEach(filter => {
                     <p>Info: ${firstCafe.info}</p>
                   `;
 
-                    cafelist.appendChild(cafeInfoElement);
+                    cafeContainer.appendChild(cafeInfoElement)
+
+                    cafeList.appendChild(cafeContainer);
                 } else {
                     console.log("No cafe returned");
                 }
