@@ -61,9 +61,6 @@ input {
     margin-bottom: 8px;
 }
 
-.login-button {
-    margin-left: 60px;
-}
 
 .coffee-container {
     display: flex;
@@ -88,6 +85,9 @@ input {
 .login div * {
     display: flex;
 }
+.login div button {
+    margin-left: 72px;
+}
 
 .create {
     display: none;
@@ -97,4 +97,7 @@ input {
 
 .create div * {
     display: flex;
+}
+.create div button {
+    margin-left: 48px;
 }
