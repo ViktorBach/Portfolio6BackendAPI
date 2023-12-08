@@ -29,6 +29,22 @@ fetch(apiURL, { method: 'GET' })
                       <p>Info: ${cafe.info}</p>
                     `;
 
+                const coffeeButton = document.createElement('div');
+                coffeeButton.classList.add('coffee-button')
+                coffeeButton.classList.add('unfavourite')
+                coffeeButton.innerHTML = '☕️'
+
+                coffeeButton.addEventListener('click', () => {
+                    if (coffeeButton.classList.contains('unfavourite')) {
+                        coffeeButton.classList.remove('unfavourite');
+                        allCafesList.insertBefore(allCafesContainer, allCafesList.firstChild);
+                    } else {
+                        coffeeButton.classList.add('unfavourite');
+                        allCafesList.appendChild(allCafesContainer)
+                    }
+                })
+
+                allCafesContainer.appendChild(coffeeButton)
                 allCafesContainer.appendChild(allCafesCafeInfo);
 
                 allCafesList.appendChild(allCafesContainer)

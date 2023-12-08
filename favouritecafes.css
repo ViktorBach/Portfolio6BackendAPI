@@ -62,3 +62,15 @@ nav li a {
     display: inline-block;
     vertical-align: top;
 }
+
+.coffee-button {
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    text-align: right;
+}
+
+.unfavourite {
+    opacity: 0.5;
+}
