@@ -19,9 +19,6 @@ h1 {
     display: flex;
     justify-content: center;
 }
-ul li {
-    list-style-type: none;
-}
 
 .buttons {
     display: flex;
@@ -68,13 +65,13 @@ input {
     margin-left: 60px;
 }
 
-.create-button {
-    margin-left: 37px;
+.coffee-container {
+    display: flex;
+    justify-content: center;
 }
 
 .coffee-cup {
-    margin-left: 850px;
-    margin-top: -50px;
+    margin-top: 50px;
     width: 400px;
     height: 400px;
     position: fixed;
@@ -82,11 +79,22 @@ input {
 
 .login {
     display: none;
+    flex-direction: column;
+    align-items: center;
 }
 #login-user-status {
     display: none;
 }
+.login div * {
+    display: flex;
+}
 
 .create {
     display: none;
+    flex-direction: column;
+    align-items: center;
+}
+
+.create div * {
+    display: flex;
 }

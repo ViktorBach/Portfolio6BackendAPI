@@ -21,7 +21,7 @@ let pressLogin = true;
 
 loginButton.addEventListener('click', function() {
     if (pressLogin) {
-        loginUser.style.display = 'block';
+        loginUser.style.display = 'flex';
         loginButton.classList.add('active');
         createUser.style.display = 'none';
         pressLogin = false;
@@ -40,7 +40,7 @@ let pressSignup = true;
 
 signupButton.addEventListener('click', function() {
     if (pressSignup) {
-        createUser.style.display = 'block';
+        createUser.style.display = 'flex';
         signupButton.classList.add('active');
         loginUser.style.display = 'none';
         pressSignup = false;
