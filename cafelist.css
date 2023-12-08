@@ -51,6 +51,16 @@ nav li a {
     color: #43291f;
     text-decoration: none;
 }
+#logout-button {
+    background-color: transparent;
+    border-color: transparent;
+    font-size: 18px;
+    text-transform: uppercase;
+    color: #43291f;
+}
+#logout-button:hover, #logout-button:active {
+    cursor: pointer;
+}
 
 .main-content {
     justify-content: left;

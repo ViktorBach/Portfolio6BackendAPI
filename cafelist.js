@@ -1,22 +1,10 @@
-// Try and get user authenticated information
-const userEmail = sessionStorage.getItem('userEmail');
-const userName = sessionStorage.getItem('userName');
-
-console.log('userName:', userName);
 // Check if user is authenticated. If not, redirect to index.html
-if (!userName) {
-    console.log('User not authenticated. Redirectiong to index.html');
+if (!sessionStorage.getItem('userEmail')) {
+    console.log('User not authenticated. Redirectiing to index.html');
     // User not authenticated, redirect to index.html
     window.location.href = './index.html';
 } else {
-    try {
-        console.log('User authenticated:', userName);
-        document.querySelector("h3").innerText = `Velkommen, ${userName}!`;
-    } catch (error) {
-        console.error('Error parsing user token: ', error);
-        console.log('Redirecting to index.html due to an error')
-        window.location.href = './index.html';
-    }
+    document.querySelector("h3").innerText = `Velkommen, ${sessionStorage.getItem('userName')}!`;
 }
 
 const filters = document.querySelectorAll('select');
@@ -70,3 +58,11 @@ filters.forEach(filter => {
             });
     });
 });
+
+// Logout functionality
+const logoutButton = document.querySelector('#logout-button')
+logoutButton.addEventListener('click', function() {
+    sessionStorage.removeItem('userEmail');
+    sessionStorage.removeItem('userName');
+    window.location.href = './index.html';
+})
