@@ -79,3 +79,14 @@ input {
     height: 400px;
     position: fixed;
 }
+
+.login {
+    display: none;
+}
+#login-user-status {
+    display: none;
+}
+
+.create {
+    display: none;
+}

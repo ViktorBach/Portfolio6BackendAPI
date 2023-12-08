@@ -1,6 +1,7 @@
 // Try and get user authenticated information
 const userEmail = sessionStorage.getItem('userEmail');
 const userName = sessionStorage.getItem('userName');
+
 console.log('userName:', userName);
 // Check if user is authenticated. If not, redirect to index.html
 if (!userName) {

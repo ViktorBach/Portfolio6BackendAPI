@@ -1,14 +1,19 @@
 
+const loginUser = document.querySelector('.login')
 const loginButton = document.querySelector('.log-in')
 const signupButton = document.querySelector('.sign-up')
 const loginEmail = document.querySelector('.login-email');
 const loginPassword = document.querySelector('.login-password');
 const okButton = document.querySelector('.login-button');
+const loginUserStatus = document.querySelector('#login-user-status');
+
+const createUser = document.querySelector('.create');
 const createFirstname = document.querySelector('.create-firstname');
 const createLastname = document.querySelector('.create-lastname');
 const createEmail = document.querySelector('.create-email');
 const createPassword = document.querySelector('.create-password')
 const createButton = document.querySelector('.create-button');
+const createUserStatus = document.querySelector('#create-user-status');
 
 
 //Display login input when button is pressed
@@ -16,15 +21,12 @@ let pressLogin = true;
 
 loginButton.addEventListener('click', function() {
     if (pressLogin) {
-        loginEmail.style.display = 'block';
-        loginPassword.style.display = 'block';
-        okButton.style.display = 'block';
+        loginUser.style.display = 'block';
         loginButton.classList.add('active');
     } else {
-        loginEmail.style.display = 'none';
-        loginPassword.style.display = 'none';
-        okButton.style.display = 'none';
+        loginUser.style.display = 'none';
         loginButton.classList.remove('active');
+        loginUserStatus.style.display = 'none';
     }
     pressLogin = !pressLogin;
 });
@@ -34,19 +36,12 @@ let pressSignup = true;
 
 signupButton.addEventListener('click', function() {
     if (pressSignup) {
-        createFirstname.style.display = 'block';
-        createLastname.style.display = 'block';
-        createEmail.style.display = 'block';
-        createPassword.style.display = 'block';
-        createButton.style.display = 'block';
+        createUser.style.display = 'block';
         signupButton.classList.add('active');
     } else {
-        createFirstname.style.display = 'none';
-        createLastname.style.display = 'none';
-        createEmail.style.display = 'none';
-        createPassword.style.display = 'none';
-        createButton.style.display = 'none';
+        createUser.style.display = 'none';
         signupButton.classList.remove('active');
+        createUserStatus.style.display = 'none';
     }
     pressSignup = !pressSignup;
 });
@@ -75,9 +70,11 @@ okButton.addEventListener('click', function() {
                 sessionStorage.setItem('userEmail', data.email);
                 sessionStorage.setItem('userName', data.name);
                 console.log("Logged in! Welcome " + data.name);
+                loginUserStatus.style.display = 'none';
                 window.location.href = './cafelist.html';
             } else {
                 console.log("Login failed. Reason: " + data.message);
+                loginUserStatus.style.display = 'block';
             }
         })
         .catch(error => {
@@ -94,22 +91,35 @@ createButton.addEventListener('click', function (){
         password: createPassword.value
     };
 
-    fetch(
-        `http://localhost:3000/createuser`,
-        {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(createAccountObject)
-        }
-    )
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                console.log(data.message);
-            } else {
-                console.log(data.message);
+    if (createFirstname.value && createLastname.value && createEmail.value && (createPassword.value.length > 3)) {
+        console.log("All fields filled")
+        fetch(
+            `http://localhost:3000/createuser`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(createAccountObject)
             }
-        })
+        )
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log(data.message);
+                    createUserStatus.textContent = 'Bruger oprettet, du kan nu logge ind!';
+                    createUserStatus.style.display = 'block';
+                } else {
+                    console.log(data.message);
+                    createUserStatus.textContent = 'Email er allerede i brug';
+                    createUserStatus.style.display = 'block';
+                }
+            })
+    } else {
+        console.log("Make sure all fields are filled, and password is minimum 4 characters");
+        createUserStatus.textContent = 'Udfyld alle felter, og dobbelt tjek at password er mindst 4 karakterer'
+        createUserStatus.style.display = 'block';
+    }
+
+
 })

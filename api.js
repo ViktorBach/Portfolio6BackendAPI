@@ -1,6 +1,5 @@
 // Import libraries / middleware
 const express = require("express");
-const cookieSession = require('cookie-session');
 const mysql = require("mysql2");
 const cors = require("cors");
 
@@ -14,11 +13,6 @@ const port = 3000;
 // Use library stuff
 app.use(express());
 app.use(express.json());
-app.use(cookieSession({
-    name: 'session',
-    keys: ['yoursecretkey'],
-    maxAge: 30 * 60 * 1000 // 30 minutes
-}))
 app.use(cors());
 
 // MySQL server connection
@@ -74,17 +68,9 @@ app.post('/login', (req, res) => {
                 const isPasswordCorrect = bcrypt.compareSync(enteredPassword + salt, hashedPassword);
 
                 if (isPasswordCorrect) {
-                    req.session.user = {
-                        email: results[0].user_email,
-                        name: results[0].user_firstname
-                    };
                     console.log("User logged in: " + results[0].user_email);
-                    //return res.status(200).json({success: true, email: results[0].user_email, name: results[0].user_firstname});
-                    return res.status(200).json({
-                        success: true,
-                        email: results[0].user_email,
-                        name: results[0].user_firstname
-                    });
+                    return res.status(200).json({success: true, email: results[0].user_email, name: results[0].user_firstname});
+
                 } else {
                     console.log("Login attempt was made, but password don't match");
                     return res.status(401).json({success: false, message: "Invalid email or password"});
@@ -95,25 +81,6 @@ app.post('/login', (req, res) => {
             }
         });
 });
-
-function authenticateUser(req, res, next) {
-    if (req.session.user) {
-        //User authenticated, continue
-        next();
-    } else {
-        //User not authenticated
-        res.status(401).json({success: false, message: "Access denied. Please log in."});
-    }
-}
-
-// cafelist protected test
-app.get('/cafelist', authenticateUser, (req, res) => {
-    if (req.session.user) {
-        res.render('cafelist', {user: req.session.user});
-    } else {
-        res.status(401).json({success: false, message: 'Access denied. Please log in.'});
-    }
-})
 
 // Create new user
 app.post('/createuser', (req, res) => {
