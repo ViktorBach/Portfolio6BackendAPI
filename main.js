@@ -24,13 +24,15 @@ loginButton.addEventListener('click', function() {
         loginUser.style.display = 'block';
         loginButton.classList.add('active');
         createUser.style.display = 'none';
-        pressSignup = !pressSignup;
+        pressLogin = false;
+        pressSignup = true;
     } else {
         loginUser.style.display = 'none';
         loginButton.classList.remove('active');
         loginUserStatus.style.display = 'none';
+        pressLogin = true;
     }
-    pressLogin = !pressLogin;
+
 });
 
 //Display sign up input when button is pressed
@@ -41,13 +43,14 @@ signupButton.addEventListener('click', function() {
         createUser.style.display = 'block';
         signupButton.classList.add('active');
         loginUser.style.display = 'none';
-        pressLogin = !pressLogin;
+        pressSignup = false;
+        pressLogin = true;
     } else {
         createUser.style.display = 'none';
         signupButton.classList.remove('active');
         createUserStatus.style.display = 'none';
+        pressSignup = true;
     }
-    pressSignup = !pressSignup;
 });
 
 
