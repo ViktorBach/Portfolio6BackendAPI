@@ -45,6 +45,8 @@ filters.forEach(filter => {
                         cafeInfoElement.classList.add('cafe-info');
 
                         cafeInfoElement.innerHTML = `
+                              <p>${cafe.cafe_name}</p>
+                              <p> </p>
                               <p>Åbningstid: ${cafe.opening_hours}</p>
                               <p>Lukketid: ${cafe.closing_hours}</p>
                               <p>By: ${cafe.city}</p>

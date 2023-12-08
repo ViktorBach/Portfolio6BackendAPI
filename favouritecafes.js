@@ -18,6 +18,8 @@ fetch(apiURL, { method: 'GET' })
                 allCafesCafeInfo.classList.add('all-cafes-info');
 
                 allCafesCafeInfo.innerHTML = `
+                      <p>${cafe.cafe_name}</p>
+                      <p> </p>
                       <p>Åbningstid: ${cafe.opening_hours}</p>
                       <p>Lukketid: ${cafe.closing_hours}</p>
                       <p>By: ${cafe.city}</p>

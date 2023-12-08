@@ -185,25 +185,17 @@ app.get('/listfilter',(req,res) =>{
     const price = req.query.price_range;
     const wifi = req.query.wifi;
 
-    connection.query('SELECT * FROM details WHERE opening_hours = ? AND closing_hours = ? AND city = ? AND price_range = ? AND wifi = ?',
+    connection.query('SELECT * FROM details INNER JOIN cafes ON cafes.cafe_id = details.cafe_id WHERE opening_hours = ? AND closing_hours = ? AND city = ? AND price_range = ? AND wifi = ?',
         [open, close, location, price, wifi],
         (error, result) => {
-        if (error) {
-            res.status(500).send.error.message
-        } else {
             res.send(result)
-        }
     });
 });
 
 app.get('/details', (req, res) => {
-    connection.query('SELECT * FROM details',
+    connection.query('SELECT * FROM details INNER JOIN cafes ON cafes.cafe_id = details.cafe_id',
         (error, results) => {
-        if (error) {
-            res.status(500).send.error.message
-        } else {
             res.send(results)
-        }
         });
 });
 
