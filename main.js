@@ -72,8 +72,8 @@ okButton.addEventListener('click', function() {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                localStorage.setItem('userEmail', data.email);
-                localStorage.setItem('userName', data.name);
+                sessionStorage.setItem('userEmail', data.email);
+                sessionStorage.setItem('userName', data.name);
                 console.log("Logged in! Welcome " + data.name);
                 window.location.href = './cafelist.html';
             } else {
