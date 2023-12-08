@@ -23,6 +23,8 @@ loginButton.addEventListener('click', function() {
     if (pressLogin) {
         loginUser.style.display = 'block';
         loginButton.classList.add('active');
+        createUser.style.display = 'none';
+        pressSignup = !pressSignup;
     } else {
         loginUser.style.display = 'none';
         loginButton.classList.remove('active');
@@ -38,6 +40,8 @@ signupButton.addEventListener('click', function() {
     if (pressSignup) {
         createUser.style.display = 'block';
         signupButton.classList.add('active');
+        loginUser.style.display = 'none';
+        pressLogin = !pressLogin;
     } else {
         createUser.style.display = 'none';
         signupButton.classList.remove('active');
