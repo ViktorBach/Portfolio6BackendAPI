@@ -53,9 +53,7 @@ nav li a {
 }
 
 .main-content {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+    justify-content: left;
     margin-top: 30px;
 }
 
@@ -74,10 +72,6 @@ h1 {
     justify-content: center;
 }
 .filters {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
     padding: 10px;
 }
 
@@ -87,6 +81,7 @@ label {
 
 select {
     margin: 10px;
+    display: block;
 }
 
 .cafe-container {
@@ -98,8 +93,4 @@ select {
     box-sizing: border-box;
     display: inline-block;
     vertical-align: top;
-}
-
-.cafe-list {
-
 }
