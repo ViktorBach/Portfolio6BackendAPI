@@ -31,15 +31,15 @@ fetch(apiURL, { method: 'GET' })
 
                 const coffeeButton = document.createElement('div');
                 coffeeButton.classList.add('coffee-button')
-                coffeeButton.classList.add('unfavourite')
+                coffeeButton.classList.add('unfavorite')
                 coffeeButton.innerHTML = '☕️'
 
                 coffeeButton.addEventListener('click', () => {
-                    if (coffeeButton.classList.contains('unfavourite')) {
-                        coffeeButton.classList.remove('unfavourite');
+                    if (coffeeButton.classList.contains('unfavorite')) {
+                        coffeeButton.classList.remove('unfavorite');
                         allCafesList.insertBefore(allCafesContainer, allCafesList.firstChild);
                     } else {
-                        coffeeButton.classList.add('unfavourite');
+                        coffeeButton.classList.add('unfavorite');
                         allCafesList.appendChild(allCafesContainer)
                     }
                 })
