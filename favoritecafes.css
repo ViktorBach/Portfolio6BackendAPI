@@ -27,7 +27,6 @@ nav .logo p{
     color: #43291f;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    cursor: pointer;
 }
 
 nav img {
@@ -60,6 +59,12 @@ nav li a {
 }
 #logout-button:hover, #logout-button:active {
     cursor: pointer;
+    color: black;
+    font-size: 19px;
+}
+
+nav li a:hover {
+    font-size: 19px;
     color: black;
 }
 
