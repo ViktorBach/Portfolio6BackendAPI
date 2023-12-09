@@ -60,6 +60,7 @@ nav li a {
 }
 #logout-button:hover, #logout-button:active {
     cursor: pointer;
+    color: black;
 }
 
 .all-cafes-container {
@@ -83,4 +84,16 @@ nav li a {
 
 .unfavorite {
     opacity: 0.5;
+}
+
+.welcome h1 {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+
+.welcome-container span {
+    display: flex;
+    justify-content: center;
 }

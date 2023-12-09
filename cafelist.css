@@ -104,3 +104,37 @@ select {
     display: inline-block;
     vertical-align: top;
 }
+
+.open-and-close {
+    display: flex;
+    justify-content: center;
+}
+
+.city {
+    display: flex;
+    justify-content: center;
+}
+
+.price-and-wifi {
+    display: flex;
+    justify-content: center;
+}
+
+.list-of-cafes {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.list-of-cafes h2 {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+}
+.list-of-cafes ul {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+.main-content label {
+    margin-top: 11px;
+}
