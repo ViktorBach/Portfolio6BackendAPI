@@ -152,7 +152,7 @@ app.get('/listfilter',(req,res) =>{
     const price = req.query.price_range;
     const wifi = req.query.wifi;
 
-    connection.query('SELECT * FROM details INNER JOIN cafes ON cafes.cafe_id = details.cafe_id WHERE opening_hours = ? AND closing_hours = ? AND city = ? AND price_range = ? AND wifi = ?',
+    connection.query('SELECT * FROM details INNER JOIN cafes ON cafes.cafe_id = details.cafe_id WHERE opening_hours <= ? AND closing_hours >= ? AND city = ? AND price_range = ? AND wifi = ?',
         [open, close, location, price, wifi],
         (error, result) => {
             res.send(result)
@@ -260,13 +260,21 @@ app.post('/new/favorite',(req,res)=>{
     const userId = req.body.user_id;
     const cafeId = req.body.cafe_id;
 
-    connection.query(
-        'INSERT INTO `favorites` (user_id, cafe_id) VALUES (?,?)',
+    connection.query('SELECT * FROM favorites WHERE user_id = ? AND cafe_id = ?',
         [userId, cafeId],
         function (error, results) {
-            res.send(results)
+        if (results.length > 0) {
+            res.status(418).send('cafe is already favorited')
+        } else {
+            connection.query(
+                'INSERT INTO `favorites` (user_id, cafe_id) VALUES (?,?)',
+                [userId, cafeId],
+                function (error, results) {
+                    res.send(results)
+                }
+            )
         }
-    )
+    });
 });
 
 //Rate a café

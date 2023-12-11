@@ -77,14 +77,21 @@ nav li a:hover {
     box-sizing: border-box;
     display: inline-block;
     vertical-align: top;
+    position: relative;
+}
+
+.all-cafes-info {
+    margin-top: 20px;
 }
 
 .coffee-button {
+    position: absolute;
     top: 10px;
     right: 10px;
     font-size: 20px;
     cursor: pointer;
     text-align: right;
+    display: inline-block;
 }
 
 .unfavorite {
