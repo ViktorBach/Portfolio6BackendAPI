@@ -260,13 +260,21 @@ app.post('/new/favorite',(req,res)=>{
     const userId = req.body.user_id;
     const cafeId = req.body.cafe_id;
 
-    connection.query(
-        'INSERT INTO `favorites` (user_id, cafe_id) VALUES (?,?)',
+    connection.query('SELECT * FROM favorites WHERE user_id = ? AND cafe_id = ?',
         [userId, cafeId],
         function (error, results) {
-            res.send(results)
+        if (results.length > 0) {
+            res.status(418).send('cafe is already favorited')
+        } else {
+            connection.query(
+                'INSERT INTO `favorites` (user_id, cafe_id) VALUES (?,?)',
+                [userId, cafeId],
+                function (error, results) {
+                    res.send(results)
+                }
+            )
         }
-    )
+    });
 });
 
 app.get('*',(req,res) =>{
