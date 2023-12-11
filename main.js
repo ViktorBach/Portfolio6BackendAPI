@@ -23,6 +23,9 @@ loginButton.addEventListener('click', function() {
     if (pressLogin) {
         loginUser.style.display = 'flex';
         loginButton.classList.add('active');
+        if (signupButton.classList.contains('active')) {
+            signupButton.classList.remove('active')
+        }
         createUser.style.display = 'none';
         pressLogin = false;
         pressSignup = true;
@@ -42,6 +45,9 @@ signupButton.addEventListener('click', function() {
     if (pressSignup) {
         createUser.style.display = 'flex';
         signupButton.classList.add('active');
+        if (loginButton.classList.contains('active')) {
+            loginButton.classList.remove('active')
+        }
         loginUser.style.display = 'none';
         pressSignup = false;
         pressLogin = true;

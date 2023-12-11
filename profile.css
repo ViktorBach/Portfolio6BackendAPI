@@ -69,10 +69,10 @@ nav li a:hover {
 }
 
 h1 {
-    margin-top: 50px;
+    margin-top: 60px;
     display: flex;
     justify-content: center;
-    font-size: 45px;
+    font-size: 35px;
 }
 
 .profile-details {

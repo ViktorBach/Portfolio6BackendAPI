@@ -102,3 +102,24 @@ nav li a:hover {
     display: flex;
     justify-content: center;
 }
+
+.ratings {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-right: 290px;
+}
+.ratings span {
+    cursor: pointer;
+    transition: color .2s, transform .2s;
+    font-size: 24px;
+    padding: 2px;
+}
+
+.ratings span:hover {
+    color: orange;
+    transform: scale(1.3);
+}
+
+.ratings span:hover ~ span {
+    color: orange;
+}

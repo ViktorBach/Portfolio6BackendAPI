@@ -146,6 +146,14 @@ COLLATE = utf8mb4_0900_ai_ci;
 --                        (6, 12),
 --                        (2, 3);
 
+CREATE TABLE IF NOT EXISTS ratings (
+    rating_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    cafe_id INT,
+    rating_value INT,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (cafe_id) REFERENCES cafes(cafe_id)
+);
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

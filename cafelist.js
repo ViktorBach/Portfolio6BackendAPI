@@ -41,7 +41,7 @@ filters.forEach(filter => {
                               <p>By: ${cafe.city}</p>
                               <p>Addresse: ${cafe.address}</p>
                               <p>Pris: ${cafe.price_range}</p>
-                              <p>Wi-Fi: ${cafe.wifi}</p>
+                              <p>Wi-Fi: ${cafe.wifi === 1 ? 'Ja' : 'Nej'}</p>
                               <p>Info: ${cafe.info}</p>
                             `;
 

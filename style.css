@@ -45,7 +45,13 @@ h1 {
     font-size: 14px;
 }
 
-.log-in:hover, .log-in:active {
+.log-in:hover {
+    background-color: #43291f;
+    color: #f5efe8;
+    cursor: pointer;
+}
+
+.active {
     background-color: #43291f;
     color: #f5efe8;
     cursor: pointer;

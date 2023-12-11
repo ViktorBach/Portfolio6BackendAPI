@@ -32,9 +32,23 @@ fetch(apiURL, { method: 'GET' })
                       <p>By: ${cafe.city}</p>
                       <p>Addresse: ${cafe.address}</p>
                       <p>Pris: ${cafe.price_range}</p>
-                      <p>Wi-Fi: ${cafe.wifi}</p>
+                      <p>Wi-Fi: ${cafe.wifi === 1 ? 'Ja' : 'Nej'}</p>
                       <p>Info: ${cafe.info}</p>
                     `;
+                //Add rating option
+                const ratingsWrapper = document.createElement('div');
+                ratingsWrapper.classList.add('ratings-wrapper');
+
+                const ratings = document.createElement('div');
+                ratings.classList.add('ratings');
+
+                ratings.innerHTML = `
+                <span data-rating="5">&#9733;</span>
+                <span data-rating="4">&#9733;</span>
+                <span data-rating="3">&#9733;</span>
+                <span data-rating="2">&#9733;</span>
+                <span data-rating="1">&#9733;</span>
+                `
 
                 const coffeeButton = document.createElement('div');
                 coffeeButton.classList.add('coffee-button')
@@ -50,7 +64,7 @@ fetch(apiURL, { method: 'GET' })
                         allCafesList.appendChild(allCafesContainer)
                     }
                 })
-
+                allCafesContainer.appendChild(ratings);
                 allCafesContainer.appendChild(coffeeButton)
                 allCafesContainer.appendChild(allCafesCafeInfo);
 
@@ -63,6 +77,10 @@ fetch(apiURL, { method: 'GET' })
     .catch(error => {
         console.log('error: ', error);
     });
+
+
+
+
 
 // Logout functionality
 const logoutButton = document.querySelector('#logout-button')

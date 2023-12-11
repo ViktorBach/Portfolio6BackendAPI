@@ -69,7 +69,7 @@ app.post('/login', (req, res) => {
 
                 if (isPasswordCorrect) {
                     console.log("User logged in: " + results[0].user_email);
-                    return res.status(200).json({success: true, email: results[0].user_email, name: results[0].user_firstname});
+                    return res.status(200).json({success: true, email: results[0].user_email, name: results[0].user_firstname, lastname: results[0].user_lastname});
 
                 } else {
                     console.log("Login attempt was made, but password don't match");
@@ -268,6 +268,21 @@ app.post('/new/favorite',(req,res)=>{
         }
     )
 });
+
+//Rate a café
+app.post('/rating', (req, res) => {
+    const userId = req.body.user_id;
+    const cafeId = req.body.cafe_id;
+    const ratingValue = req.body.rating_value;
+
+    connection.query(
+        'INSERT INTO `ratings` (user_id, cafe_id, rating_value) VALUES (?,?,?)',
+        [userId, cafeId, ratingValue],
+        function (error, results) {
+            res.send(results)
+        }
+    )
+})
 
 app.get('*',(req,res) =>{
     res.sendStatus(404);
