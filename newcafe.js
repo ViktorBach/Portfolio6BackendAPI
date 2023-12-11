@@ -54,5 +54,6 @@ const logoutButton = document.querySelector('#logout-button')
 logoutButton.addEventListener('click', function() {
     sessionStorage.removeItem('userEmail');
     sessionStorage.removeItem('userName');
+    sessionStorage.removeItem('userLastname');
     window.location.href = './index.html';
 })
