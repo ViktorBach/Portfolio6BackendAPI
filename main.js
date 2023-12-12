@@ -88,6 +88,7 @@ okButton.addEventListener('click', function() {
                 window.location.href = './cafelist.html';
             } else {
                 console.log("Login failed. Reason: " + data.message);
+                loginUserStatus.textContent = data.message;
                 loginUserStatus.style.display = 'block';
             }
         })
@@ -105,35 +106,31 @@ createButton.addEventListener('click', function (){
         password: createPassword.value
     };
 
-    if (createFirstname.value && createLastname.value && createEmail.value && (createPassword.value.length > 3)) {
-        console.log("All fields filled")
-        fetch(
-            `http://localhost:3000/createuser`,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(createAccountObject)
+    fetch(
+        `http://localhost:3000/createuser`,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(createAccountObject)
+        }
+    )
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log(data.message);
+                createUserStatus.textContent = data.message;
+                createUserStatus.style.display = 'block';
+            } else {
+                console.log(data.message);
+                createUserStatus.textContent = data.message;
+                createUserStatus.style.display = 'block';
             }
-        )
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    console.log(data.message);
-                    createUserStatus.textContent = 'Bruger oprettet, du kan nu logge ind!';
-                    createUserStatus.style.display = 'block';
-                } else {
-                    console.log(data.message);
-                    createUserStatus.textContent = 'Email er allerede i brug';
-                    createUserStatus.style.display = 'block';
-                }
-            })
-    } else {
-        console.log("Make sure all fields are filled, and password is minimum 4 characters");
-        createUserStatus.textContent = 'Udfyld alle felter, og dobbelt tjek at password er mindst 4 karakterer'
-        createUserStatus.style.display = 'block';
-    }
+        })
+        .catch(error => {
+            console.log('Error: ', error);
+        })
 
 
 })

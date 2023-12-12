@@ -73,11 +73,11 @@ app.post('/login', (req, res) => {
 
                 } else {
                     console.log("Login attempt was made, but password don't match");
-                    return res.status(401).json({success: false, message: "Invalid email or password"});
+                    return res.status(401).json({success: false, message: "Forkert Email og/eller Password"});
                 }
             } else {
                 console.log("Login attempt was made, but no matching email found");
-                return res.status(401).json({success: false, message: "Invalid email or password"});
+                return res.status(401).json({success: false, message: "Forkert Email og/eller Password"});
             }
         });
 });
@@ -87,9 +87,24 @@ app.post('/createuser', (req, res) => {
     const firstname = req.body.firstname;
     const lastname = req.body.lastname;
     const email = req.body.email;
-
-    // Salt and Hash password
     const rawPassword = req.body.password;
+
+    // Capitalize first letters of first/last name, in case they weren't submitted like that
+    const firstnameCapitalized = firstname.charAt(0).toUpperCase() + firstname.slice(1);
+    const lastnameCapitalized = lastname.charAt(0).toUpperCase() + lastname.slice(1);
+
+    // Validate submitted info
+    // Check if password is 4 characters or longer
+    if (rawPassword.length < 4) {
+        return res.status(400).json({success: false, message: "Password skal være mindst 4 karakterer"});
+    }
+    // Check if email is actually an email
+    const regexEmailCheck = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    if (!email.match(regexEmailCheck)) {
+        return res.status(400).json({success: false, message: "Tjek at din email er indtastet korrekt"});
+    }
+
+    // Salt and Hash the raw password
     const salt = bcrypt.genSaltSync(saltRounds);
     const hashedPassword = bcrypt.hashSync(rawPassword + salt, saltRounds);
 
@@ -102,17 +117,19 @@ app.post('/createuser', (req, res) => {
                 return res.status(500).json({success: false, message: "Internal server error"});
             }
 
+            // Check if query returned results - if yes, email is in use
             if (results.length > 0) {
                 console.log("Account creation attempt was made with: " + email + ", but email already exists in DB")
-                return res.status(409).json({success: false, message: "Email is already in use"});
+                return res.status(409).json({success: false, message: "Den valgte email er allerede i brug"});
             } else {
+                // Email didn't exist, so create user
                 console.log("Email available: " + email + ", creating account");
                 connection.query('INSERT INTO cafe_finder.users (user_firstname, user_lastname, user_email, user_password, user_salt) ' +
                     'VALUES (?, ?, ?, ?, ?)',
-                    [firstname, lastname, email, hashedPassword, salt],
+                    [firstnameCapitalized, lastnameCapitalized, email, hashedPassword, salt],
                     (error, results) => {
                         console.log("User created")
-                        return res.status(200).json({success: true, message: "Account successfully created - you can now login!"});
+                        return res.status(200).json({success: true, message: "Bruger oprettet, du kan nu logge ind!"});
                     })
             }
         })
