@@ -69,7 +69,7 @@ app.post('/login', (req, res) => {
 
                 if (isPasswordCorrect) {
                     console.log("User logged in: " + results[0].user_email);
-                    return res.status(200).json({success: true, email: results[0].user_email, name: results[0].user_firstname, lastname: results[0].user_lastname});
+                    return res.status(200).json({success: true, email: results[0].user_email, name: results[0].user_firstname, lastname: results[0].user_lastname, userId: results[0].user_id});
 
                 } else {
                     console.log("Login attempt was made, but password don't match");
@@ -276,6 +276,7 @@ app.post('/new/details',(req,res)=>{
 app.post('/new/favorite',(req,res)=>{
     const userId = req.body.user_id;
     const cafeId = req.body.cafe_id;
+    console.log(req.body)
 
     connection.query('SELECT * FROM favorites WHERE user_id = ? AND cafe_id = ?',
         [userId, cafeId],

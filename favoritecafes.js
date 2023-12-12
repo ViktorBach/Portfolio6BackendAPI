@@ -8,7 +8,7 @@ if (!sessionStorage.getItem('userEmail')) {
 const allCafesList = document.querySelector('.all-cafes');
 
 const detailsURL = 'http://localhost:3000/details'
-const favoritesURL = 'http://localhost:3000/new/favorites'
+const favoritesURL = 'http://localhost:3000/new/favorite'
 
 fetch(detailsURL, { method: 'GET' })
     .then(response => response.json())
@@ -60,11 +60,25 @@ fetch(detailsURL, { method: 'GET' })
                     if (coffeeButton.classList.contains('unfavorite')) {
                         coffeeButton.classList.remove('unfavorite');
                         allCafesList.insertBefore(allCafesContainer, allCafesList.firstChild);
-                        fetch(favoritesURL, { method: 'POST' })
+                        console.log(JSON.stringify({
+                            user_id: sessionStorage.getItem('userId'),
+                            cafe_id: cafe.cafe_id,
+                        }))
+                        fetch(favoritesURL, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                user_id: sessionStorage.getItem('userId'),
+                                cafe_id: cafe.cafe_id,
+                            })
+                        })
                             .then(response => response.json())
                             .then(favouritesData => {
+                                console.log(favouritesData);
                                 if (!favouritesData) {
-                                    console.log("This cafe is already in our website!");
+                                    console.log("This cafe is already favorited!");
                                 } else {
                                     console.log("Cafe successfully favorited!");
                                 }

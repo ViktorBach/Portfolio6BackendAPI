@@ -83,6 +83,7 @@ okButton.addEventListener('click', function() {
                 sessionStorage.setItem('userEmail', data.email);
                 sessionStorage.setItem('userName', data.name);
                 sessionStorage.setItem('userLastname', data.lastname);
+                sessionStorage.setItem('userId', data.userId);
                 console.log("Logged in! Welcome " + data.name);
                 loginUserStatus.style.display = 'none';
                 window.location.href = './cafelist.html';
