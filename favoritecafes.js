@@ -9,6 +9,7 @@ const allCafesList = document.querySelector('.all-cafes');
 
 const detailsURL = 'http://localhost:3000/details'
 const favoritesURL = 'http://localhost:3000/new/favorite'
+const deleteFavoritesURL = 'http://localhost:3000/delete/favorite'
 
 fetch(detailsURL, { method: 'GET' })
     .then(response => response.json())
@@ -86,6 +87,23 @@ fetch(detailsURL, { method: 'GET' })
                     } else {
                         coffeeButton.classList.add('unfavorite');
                         allCafesList.appendChild(allCafesContainer)
+                        fetch(deleteFavoritesURL, {
+                            method: "DELETE",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                cafe_id: cafe.cafe_id,
+                            })
+                        })
+                            .then(response => response.json())
+                            .then(deletedFavorite => {
+                                if (deletedFavorite) {
+                                    console.log('Cafe successfully unfavorited');
+                                } else {
+                                    console.error('Failed to unfavorited cafe.');
+                                }
+                            })
                     }
                 })
                 allCafesContainer.appendChild(ratings);

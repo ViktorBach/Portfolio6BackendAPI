@@ -278,6 +278,16 @@ app.post('/new/favorite',(req,res)=>{
     });
 });
 
+//Delete cafe from favorites
+app.delete('/delete/favorite', (req, res) => {
+    const cafeId = req.body.cafe_id
+    connection.query('DELETE FROM favorites WHERE cafe_id = ?',
+        [cafeId],
+        (error, result) => {
+        res.send(result)
+        })
+})
+
 //Rate a café
 app.post('/rating', (req, res) => {
     const userId = req.body.user_id;
