@@ -10,6 +10,48 @@ if (!sessionStorage.getItem('userEmail')) {
     //Add ^ to my favorites when done
 }
 
+const favoriteList = document.querySelector('.favorite-list')
+const userId = sessionStorage.getItem('userId')
+const apiURL = `http://localhost:3000/favorites?user_id=${userId}`;
+
+fetch(apiURL, { method: 'GET' })
+    .then(response => response.json())
+    .then(favoriteData => {
+
+        favoriteList.innerHTML = '';
+
+        if (favoriteData.length > 0) {
+            favoriteData.forEach(cafe => {
+
+                const favoriteContainer = document.createElement('div');
+                favoriteContainer.classList.add('favorite-container');
+
+                const favoriteInfoElement = document.createElement('div');
+                favoriteInfoElement.classList.add('cafe-info');
+
+                favoriteInfoElement.innerHTML = `
+                              <p>${cafe.cafe_name}</p>
+                              <p> </p>
+                              <p>Åbningstid: ${cafe.opening_hours}</p>
+                              <p>Lukketid: ${cafe.closing_hours}</p>
+                              <p>By: ${cafe.city}</p>
+                              <p>Addresse: ${cafe.address}</p>
+                              <p>Pris: ${cafe.price_range}</p>
+                              <p>Wi-Fi: ${cafe.wifi === 1 ? 'Ja' : 'Nej'}</p>
+                              <p>Info: ${cafe.info}</p>
+                            `;
+
+                favoriteContainer.appendChild(favoriteInfoElement);
+
+                favoriteList.appendChild(favoriteContainer);
+            });
+        } else {
+            favoriteList.innerHTML = 'No Cafes Favorited';
+        }
+    })
+    .catch(error => {
+        console.log('error: ', error);
+    });
 
 
 

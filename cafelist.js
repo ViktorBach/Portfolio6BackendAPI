@@ -67,3 +67,6 @@ logoutButton.addEventListener('click', function() {
     sessionStorage.removeItem('userLastname');
     window.location.href = './index.html';
 })
+
+console.log(sessionStorage.getItem("userId"));
+
