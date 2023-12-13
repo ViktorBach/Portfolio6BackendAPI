@@ -28,6 +28,7 @@ loginButton.addEventListener('click', function() {
             signupButton.classList.remove('active')
         }
         createUser.style.display = 'none';
+        createUserStatus.style.display = 'none';
         pressLogin = false;
         pressSignup = true;
     } else {
@@ -50,6 +51,7 @@ signupButton.addEventListener('click', function() {
             loginButton.classList.remove('active')
         }
         loginUser.style.display = 'none';
+        loginUserStatus.style.display = 'none'
         pressSignup = false;
         pressLogin = true;
     } else {
@@ -64,6 +66,8 @@ signupButton.addEventListener('click', function() {
 // Login user
 loginForm.addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent default form behaviour of refreshing site
+
+    loginUserStatus.style.display = 'none';
 
     displayLoader(true, loginForm);
 
