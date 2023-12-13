@@ -4,15 +4,17 @@ const loginButton = document.querySelector('.log-in')
 const signupButton = document.querySelector('.sign-up')
 const loginEmail = document.querySelector('.login-email');
 const loginPassword = document.querySelector('.login-password');
-const okButton = document.querySelector('.login-button');
+//const okButton = document.querySelector('.login-button');
+const submitLoginForm = document.querySelector('#login-form');
 const loginUserStatus = document.querySelector('#login-user-status');
 
-const createUser = document.querySelector('.create');
+const createUser = document.querySelector('#create-form');
 const createFirstname = document.querySelector('.create-firstname');
 const createLastname = document.querySelector('.create-lastname');
 const createEmail = document.querySelector('.create-email');
 const createPassword = document.querySelector('.create-password')
 const createButton = document.querySelector('.create-button');
+const submitCreateForm = document.querySelector('#create-form');
 const createUserStatus = document.querySelector('#create-user-status');
 
 
@@ -61,7 +63,9 @@ signupButton.addEventListener('click', function() {
 
 
 // Login user
-okButton.addEventListener('click', function() {
+submitLoginForm.addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form behaviour of refreshing site
+
     const loginObject = {
         email: loginEmail.value,
         password: loginPassword.value
@@ -99,7 +103,9 @@ okButton.addEventListener('click', function() {
 })
 
 // Create new user
-createButton.addEventListener('click', function (){
+submitCreateForm.addEventListener('submit', function (event){
+    event.preventDefault(); // Prevent default form behaviour of refreshing site
+
     const createAccountObject = {
         firstname: createFirstname.value,
         lastname: createLastname.value,

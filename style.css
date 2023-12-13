@@ -95,7 +95,7 @@ input {
     margin-left: 72px;
 }
 
-.create {
+#create-form {
     display: none;
     flex-direction: column;
     align-items: center;
