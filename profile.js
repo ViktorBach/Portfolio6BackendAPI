@@ -30,7 +30,6 @@ fetch(apiURL, { method: 'GET' })
                 favoriteInfoElement.classList.add('cafe-info');
 
                 favoriteInfoElement.innerHTML = `
-                              <p> </p>
                               <p>${cafe.cafe_name}</p>
                               <p> </p>
                               <p>Åbningstid: ${cafe.opening_hours}</p>
