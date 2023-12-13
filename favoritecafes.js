@@ -9,7 +9,7 @@ let storedUserId = sessionStorage.getItem("userId")
 const allCafesList = document.querySelector('.all-cafes');
 
 const detailsURL = 'http://localhost:3000/details'
-const favoritesURL = 'http://localhost:3000/new/favorites'
+const favoritesURL = 'http://localhost:3000/new/favorite'
 const ratingURL = 'http://localhost:3000/rating'
 const deleteFavoritesURL = 'http://localhost:3000/delete/favorite'
 
@@ -42,7 +42,11 @@ fetch(detailsURL, { method: 'GET' })
                     `;
 
                 //Add rating option
+                //CSS inspired from: https://www.youtube.com/watch?v=_gToDN-aoyI
+                const ratingsContainer = document.createElement('div')
+                ratingsContainer.classList.add('ratings-container')
                 const ratings = document.createElement('div');
+                ratingsContainer.append(ratings);
                 ratings.classList.add('ratings');
 
                 ratings.innerHTML = `

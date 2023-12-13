@@ -110,16 +110,21 @@ nav li a:hover {
     justify-content: center;
 }
 
+
 .ratings {
     display: flex;
     flex-direction: row-reverse;
-    margin-right: 290px;
+    justify-content: flex-end;
+    align-items: flex-end;
+
 }
 .ratings span {
     cursor: pointer;
     transition: color .2s, transform .2s;
     font-size: 24px;
     padding: 2px;
+    display: flex;
+
 }
 
 .ratings span:hover {
