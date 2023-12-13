@@ -195,6 +195,20 @@ app.get('/cafes/search', (req,res)=>{
         });
 });
 
+app.get('/favorites', (req, res) => {
+    const userId = req.query.user_id;
+
+    connection.query('SELECT * FROM cafes INNER JOIN favorites ON cafes.cafe_id = favorites.cafe_id INNER JOIN details ON cafes.cafe_id = details.cafe_id WHERE favorites.user_id = ?',
+        [userId],
+        (error, result) => {
+        if (error) {
+            res.status(500).send({ error: error.message });
+        } else {
+            res.send(result)
+        }
+        })
+});
+
 //Create new cafe
 app.post('/new/cafe',(req,res)=>{
     const name = req.body.name;
