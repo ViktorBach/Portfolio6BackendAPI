@@ -5,10 +5,12 @@ if (!sessionStorage.getItem('userEmail')) {
     window.location.href = './index.html';
 }
 
+let storedUserId = sessionStorage.getItem("userId")
 const allCafesList = document.querySelector('.all-cafes');
 
 const detailsURL = 'http://localhost:3000/details'
-const favoritesURL = 'http://localhost:3000/new/favorite'
+const favoritesURL = 'http://localhost:3000/new/favorites'
+const ratingURL = 'http://localhost:3000/rating'
 const deleteFavoritesURL = 'http://localhost:3000/delete/favorite'
 
 fetch(detailsURL, { method: 'GET' })
@@ -19,12 +21,13 @@ fetch(detailsURL, { method: 'GET' })
 
         if (cafeData.length > 0) {
             cafeData.forEach(cafe => {
-
                 const allCafesContainer = document.createElement('div');
                 allCafesContainer.classList.add('all-cafes-container');
+                allCafesContainer.setAttribute('id', cafe.cafe_id)
 
                 const allCafesCafeInfo = document.createElement('div');
-                allCafesCafeInfo.classList.add('all-cafes-info');
+                allCafesCafeInfo.classList.add('all-cafes-info') ;
+
 
                 allCafesCafeInfo.innerHTML = `
                       <p>${cafe.cafe_name}</p>
@@ -37,10 +40,8 @@ fetch(detailsURL, { method: 'GET' })
                       <p>Wi-Fi: ${cafe.wifi === 1 ? 'Ja' : 'Nej'}</p>
                       <p>Info: ${cafe.info}</p>
                     `;
-                //Add rating option
-                const ratingsWrapper = document.createElement('div');
-                ratingsWrapper.classList.add('ratings-wrapper');
 
+                //Add rating option
                 const ratings = document.createElement('div');
                 ratings.classList.add('ratings');
 
@@ -50,7 +51,10 @@ fetch(detailsURL, { method: 'GET' })
                 <span data-rating="3">&#9733;</span>
                 <span data-rating="2">&#9733;</span>
                 <span data-rating="1">&#9733;</span>
-                `
+                `;
+                allCafesList.appendChild(allCafesContainer)
+                allCafesContainer.appendChild(ratings);
+
 
                 const coffeeButton = document.createElement('div');
                 coffeeButton.classList.add('coffee-button')
@@ -87,6 +91,7 @@ fetch(detailsURL, { method: 'GET' })
                     } else {
                         coffeeButton.classList.add('unfavorite');
                         allCafesList.appendChild(allCafesContainer)
+
                         fetch(deleteFavoritesURL, {
                             method: "DELETE",
                             headers: {
@@ -106,12 +111,14 @@ fetch(detailsURL, { method: 'GET' })
                             })
                     }
                 })
-                allCafesContainer.appendChild(ratings);
+
                 allCafesContainer.appendChild(coffeeButton)
                 allCafesContainer.appendChild(allCafesCafeInfo);
 
-                allCafesList.appendChild(allCafesContainer)
+
+
             });
+            addRating(cafeData)
             } else {
             console.log("no cafes returned");
         }
@@ -120,9 +127,40 @@ fetch(detailsURL, { method: 'GET' })
         console.log('error: ', error);
     });
 
+function addRating(cafeData) {
+    let ratingStars =  document.querySelectorAll('.ratings')
 
+    ratingStars.forEach((starContainer, index) => {
+        let stars = starContainer.querySelectorAll('span')
 
+        stars.forEach((star) => {
+            star.addEventListener("click",() => {
 
+                let rating = (star.getAttribute("data-rating"))
+                let cafeId = cafeData[index].cafe_id
+
+                let returnObject = {
+                    user_id: storedUserId,
+                    cafe_id: cafeId,
+                    rating_value: rating
+                }
+
+                fetch(ratingURL, {
+                    method: 'post',
+                    headers: {
+                        'Content-Type':'application/json',
+                    },
+                    body: JSON.stringify(returnObject),
+                }).then(response => response.text())
+                    .then((ok) => {
+                        console.log(ok);
+                        star.setAttribute('data-clicked', '');
+                    })
+            })
+        })
+
+    })
+}
 
 // Logout functionality
 const logoutButton = document.querySelector('#logout-button')
@@ -132,3 +170,13 @@ logoutButton.addEventListener('click', function() {
     sessionStorage.removeItem('userLastname');
     window.location.href = './index.html';
 })
+
+const cafesContainer = document.querySelector(".all-cafes");
+const listOfAllCafes = cafesContainer.querySelectorAll("div")
+
+listOfAllCafes.forEach((cafe) => {
+    let infoDiv = cafe.querySelector(".all-cafes-info");
+
+})
+
+

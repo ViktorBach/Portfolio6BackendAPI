@@ -329,6 +329,7 @@ app.post('/rating', (req, res) => {
         'INSERT INTO `ratings` (user_id, cafe_id, rating_value) VALUES (?,?,?)',
         [userId, cafeId, ratingValue],
         function (error, results) {
+            console.log(results)
             res.send(results)
         }
     )
