@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kort</title>
+    <link rel="stylesheet" href="map.css">
+
+    <!-- Leaflet Stylesheet -->
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+            integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+            crossorigin=""
+    />
+    <!-- Leaflet JS -->
+    <script
+            src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+            integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+            crossorigin=""
+    ></script>
+
+</head>
+
+<body>
+
+<header>
+    <nav>
+        <div class="logo">
+            <img src="coffee-beans.png" alt="Coffee beans">
+            <p>Find en café</p>
+        </div>
+        <ul>
+            <li>
+                <a href="cafelist.html">Hjem</a>
+            </li>
+            <li>
+                <a href="favoritecafes.html">Alle caféer</a>
+            </li>
+            <li>
+                <a href="newcafe.html">Del en café</a>
+            </li>
+            <li>
+                <a href="profile.html">Min profil</a>
+            </li>
+            <li>
+                <button id="logout-button">Log ud</button>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section class="leaflet-map">
+        <!-- Leaflet map -->
+        <div id="map"></div>
+    </section>
+</main>
+
+<script src="map.js"></script>
+</body>
+
+</html>

@@ -303,8 +303,7 @@ app.post('/new/favorite',(req,res)=>{
                 [userId, cafeId],
                 function (error, results) {
                     res.send(results)
-                }
-            )
+                });
         }
     });
 });
