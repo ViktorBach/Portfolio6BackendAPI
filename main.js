@@ -1,24 +1,23 @@
-
-const loginUser = document.querySelector('.login')
-const loginButton = document.querySelector('.log-in')
-const signupButton = document.querySelector('.sign-up')
+// Get login elements from DOM
+const loginUser = document.querySelector('#login-form');
+const loginButton = document.querySelector('.log-in');
+const signupButton = document.querySelector('.sign-up');
 const loginEmail = document.querySelector('.login-email');
 const loginPassword = document.querySelector('.login-password');
-//const okButton = document.querySelector('.login-button');
-const submitLoginForm = document.querySelector('#login-form');
+const loginForm = document.querySelector('#login-form');
 const loginUserStatus = document.querySelector('#login-user-status');
 
+// Get create user elements from DOM
 const createUser = document.querySelector('#create-form');
 const createFirstname = document.querySelector('.create-firstname');
 const createLastname = document.querySelector('.create-lastname');
 const createEmail = document.querySelector('.create-email');
-const createPassword = document.querySelector('.create-password')
-const createButton = document.querySelector('.create-button');
-const submitCreateForm = document.querySelector('#create-form');
+const createPassword = document.querySelector('.create-password');
+const createForm = document.querySelector('#create-form');
 const createUserStatus = document.querySelector('#create-user-status');
 
 
-//Display login input when button is pressed
+// Display login input when button is pressed
 let pressLogin = true;
 
 loginButton.addEventListener('click', function() {
@@ -63,8 +62,10 @@ signupButton.addEventListener('click', function() {
 
 
 // Login user
-submitLoginForm.addEventListener('submit', function(event) {
+loginForm.addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent default form behaviour of refreshing site
+
+    displayLoader(true, loginForm);
 
     const loginObject = {
         email: loginEmail.value,
@@ -90,21 +91,30 @@ submitLoginForm.addEventListener('submit', function(event) {
                 sessionStorage.setItem('userId', data.userId);
                 console.log("Logged in! Welcome " + data.name);
                 loginUserStatus.style.display = 'none';
+                displayLoader(false, loginForm);
                 window.location.href = './cafelist.html';
             } else {
                 console.log("Login failed. Reason: " + data.message);
                 loginUserStatus.textContent = data.message;
                 loginUserStatus.style.display = 'block';
+                displayLoader(false, loginForm);
             }
         })
         .catch(error => {
             console.error('Error: ', error.message);
+            displayLoader(false, loginForm);
+            loginUserStatus.style.display = 'block';
+            loginUserStatus.textContent = 'Netværks fejl - kan ikke få forbindelse til login serveren';
         });
 })
 
 // Create new user
-submitCreateForm.addEventListener('submit', function (event){
+createForm.addEventListener('submit', function (event){
     event.preventDefault(); // Prevent default form behaviour of refreshing site
+
+    createUserStatus.style.display = 'none';
+
+    displayLoader(true, createForm);
 
     const createAccountObject = {
         firstname: createFirstname.value,
@@ -129,15 +139,33 @@ submitCreateForm.addEventListener('submit', function (event){
                 console.log(data.message);
                 createUserStatus.textContent = data.message;
                 createUserStatus.style.display = 'block';
+                displayLoader(false, createForm);
             } else {
                 console.log(data.message);
                 createUserStatus.textContent = data.message;
                 createUserStatus.style.display = 'block';
+                displayLoader(false, createForm);
             }
         })
         .catch(error => {
             console.log('Error: ', error);
+            displayLoader(false, createForm);
+            createUserStatus.textContent = 'Netværks fejl - kan ikke få forbindelse til bruger serveren';
+            createUserStatus.style.display = 'block';
         })
 
 
 })
+
+// Loading section
+const loader = document.createElement('div');
+loader.classList.add('loader', 'hidden');
+
+function displayLoader(visibility, section) {
+    section.appendChild(loader);
+    if (visibility) {
+        loader.classList.remove('hidden');
+    } else {
+        loader.classList.add('hidden');
+    }
+}
