@@ -1,22 +1,23 @@
-
-const loginUser = document.querySelector('.login')
-const loginButton = document.querySelector('.log-in')
-const signupButton = document.querySelector('.sign-up')
+// Get login elements from DOM
+const loginUser = document.querySelector('#login-form');
+const loginButton = document.querySelector('.log-in');
+const signupButton = document.querySelector('.sign-up');
 const loginEmail = document.querySelector('.login-email');
 const loginPassword = document.querySelector('.login-password');
-const okButton = document.querySelector('.login-button');
+const loginForm = document.querySelector('#login-form');
 const loginUserStatus = document.querySelector('#login-user-status');
 
-const createUser = document.querySelector('.create');
+// Get create user elements from DOM
+const createUser = document.querySelector('#create-form');
 const createFirstname = document.querySelector('.create-firstname');
 const createLastname = document.querySelector('.create-lastname');
 const createEmail = document.querySelector('.create-email');
-const createPassword = document.querySelector('.create-password')
-const createButton = document.querySelector('.create-button');
+const createPassword = document.querySelector('.create-password');
+const createForm = document.querySelector('#create-form');
 const createUserStatus = document.querySelector('#create-user-status');
 
 
-//Display login input when button is pressed
+// Display login input when button is pressed
 let pressLogin = true;
 
 loginButton.addEventListener('click', function() {
@@ -61,7 +62,11 @@ signupButton.addEventListener('click', function() {
 
 
 // Login user
-okButton.addEventListener('click', function() {
+loginForm.addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form behaviour of refreshing site
+
+    displayLoader(true, loginForm);
+
     const loginObject = {
         email: loginEmail.value,
         password: loginPassword.value
@@ -83,22 +88,34 @@ okButton.addEventListener('click', function() {
                 sessionStorage.setItem('userEmail', data.email);
                 sessionStorage.setItem('userName', data.name);
                 sessionStorage.setItem('userLastname', data.lastname);
-                sessionStorage.setItem('userId', data.userId)
+                sessionStorage.setItem('userId', data.userId);
                 console.log("Logged in! Welcome " + data.name);
                 loginUserStatus.style.display = 'none';
+                displayLoader(false, loginForm);
                 window.location.href = './cafelist.html';
             } else {
                 console.log("Login failed. Reason: " + data.message);
+                loginUserStatus.textContent = data.message;
                 loginUserStatus.style.display = 'block';
+                displayLoader(false, loginForm);
             }
         })
         .catch(error => {
             console.error('Error: ', error.message);
+            displayLoader(false, loginForm);
+            loginUserStatus.style.display = 'block';
+            loginUserStatus.textContent = 'Netværks fejl - kan ikke få forbindelse til login serveren';
         });
 })
 
 // Create new user
-createButton.addEventListener('click', function (){
+createForm.addEventListener('submit', function (event){
+    event.preventDefault(); // Prevent default form behaviour of refreshing site
+
+    createUserStatus.style.display = 'none';
+
+    displayLoader(true, createForm);
+
     const createAccountObject = {
         firstname: createFirstname.value,
         lastname: createLastname.value,
@@ -106,35 +123,49 @@ createButton.addEventListener('click', function (){
         password: createPassword.value
     };
 
-    if (createFirstname.value && createLastname.value && createEmail.value && (createPassword.value.length > 3)) {
-        console.log("All fields filled")
-        fetch(
-            `http://localhost:3000/createuser`,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(createAccountObject)
+    fetch(
+        `http://localhost:3000/createuser`,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(createAccountObject)
+        }
+    )
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log(data.message);
+                createUserStatus.textContent = data.message;
+                createUserStatus.style.display = 'block';
+                displayLoader(false, createForm);
+            } else {
+                console.log(data.message);
+                createUserStatus.textContent = data.message;
+                createUserStatus.style.display = 'block';
+                displayLoader(false, createForm);
             }
-        )
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    console.log(data.message);
-                    createUserStatus.textContent = 'Bruger oprettet, du kan nu logge ind!';
-                    createUserStatus.style.display = 'block';
-                } else {
-                    console.log(data.message);
-                    createUserStatus.textContent = 'Email er allerede i brug';
-                    createUserStatus.style.display = 'block';
-                }
-            })
-    } else {
-        console.log("Make sure all fields are filled, and password is minimum 4 characters");
-        createUserStatus.textContent = 'Udfyld alle felter, og dobbelt tjek at password er mindst 4 karakterer'
-        createUserStatus.style.display = 'block';
-    }
+        })
+        .catch(error => {
+            console.log('Error: ', error);
+            displayLoader(false, createForm);
+            createUserStatus.textContent = 'Netværks fejl - kan ikke få forbindelse til bruger serveren';
+            createUserStatus.style.display = 'block';
+        })
 
 
 })
+
+// Loading section
+const loader = document.createElement('div');
+loader.classList.add('loader', 'hidden');
+
+function displayLoader(visibility, section) {
+    section.appendChild(loader);
+    if (visibility) {
+        loader.classList.remove('hidden');
+    } else {
+        loader.classList.add('hidden');
+    }
+}

@@ -11,6 +11,7 @@ const allCafesList = document.querySelector('.all-cafes');
 const detailsURL = 'http://localhost:3000/details'
 const favoritesURL = 'http://localhost:3000/new/favorites'
 const ratingURL = 'http://localhost:3000/rating'
+const deleteFavoritesURL = 'http://localhost:3000/delete/favorite'
 
 fetch(detailsURL, { method: 'GET' })
     .then(response => response.json())
@@ -64,11 +65,25 @@ fetch(detailsURL, { method: 'GET' })
                     if (coffeeButton.classList.contains('unfavorite')) {
                         coffeeButton.classList.remove('unfavorite');
                         allCafesList.insertBefore(allCafesContainer, allCafesList.firstChild);
-                        fetch(favoritesURL, { method: 'POST' })
+                        console.log(JSON.stringify({
+                            user_id: sessionStorage.getItem('userId'),
+                            cafe_id: cafe.cafe_id,
+                        }))
+                        fetch(favoritesURL, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                user_id: sessionStorage.getItem('userId'),
+                                cafe_id: cafe.cafe_id,
+                            })
+                        })
                             .then(response => response.json())
                             .then(favouritesData => {
+                                console.log(favouritesData);
                                 if (!favouritesData) {
-                                    console.log("This cafe is already in our website!");
+                                    console.log("This cafe is already favorited!");
                                 } else {
                                     console.log("Cafe successfully favorited!");
                                 }
@@ -76,6 +91,24 @@ fetch(detailsURL, { method: 'GET' })
                     } else {
                         coffeeButton.classList.add('unfavorite');
                         allCafesList.appendChild(allCafesContainer)
+
+                        fetch(deleteFavoritesURL, {
+                            method: "DELETE",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                cafe_id: cafe.cafe_id,
+                            })
+                        })
+                            .then(response => response.json())
+                            .then(deletedFavorite => {
+                                if (deletedFavorite) {
+                                    console.log('Cafe successfully unfavorited');
+                                } else {
+                                    console.error('Failed to unfavorited cafe.');
+                                }
+                            })
                     }
                 })
 
@@ -134,6 +167,7 @@ const logoutButton = document.querySelector('#logout-button')
 logoutButton.addEventListener('click', function() {
     sessionStorage.removeItem('userEmail');
     sessionStorage.removeItem('userName');
+    sessionStorage.removeItem('userLastname');
     window.location.href = './index.html';
 })
 

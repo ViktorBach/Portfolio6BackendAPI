@@ -17,23 +17,27 @@
   <section class="user-input">
 
     <div class="login">
-      <div>
-        <input type="email" class="login-email" placeholder="Email">
-        <input type="password" class="login-password" placeholder="Password">
-        <button type="submit" class="login-button">OK</button>
-      </div>
-      <p id="login-user-status">Forkert email og/eller password</p>
+      <form id="login-form">
+        <div>
+            <input type="email" class="login-email" placeholder="Email">
+            <input type="password" class="login-password" placeholder="Password">
+            <button type="submit" class="login-button">OK</button>
+        </div>
+        <p id="login-user-status"></p>
+      </form>
     </div>
 
     <div class="create">
-      <div>
-        <input type="text" class="create-firstname" placeholder="Fornavn">
-        <input type="text" class="create-lastname" placeholder="Efternavn">
-        <input type="email" class="create-email" placeholder="Email">
-        <input type="password" class="create-password" placeholder="Password">
-        <button type="submit" class="create-button">Lav bruger</button>
-      </div>
-      <p id="create-user-status"></p>
+      <form id="create-form">
+        <div>
+          <input type="text" class="create-firstname" placeholder="Fornavn">
+          <input type="text" class="create-lastname" placeholder="Efternavn">
+          <input type="email" class="create-email" placeholder="Email">
+          <input type="password" class="create-password" placeholder="Password">
+          <button type="submit" class="create-button">Lav bruger</button>
+        </div>
+        <p id="create-user-status"></p>
+      </form>
     </div>
 
   </section>
