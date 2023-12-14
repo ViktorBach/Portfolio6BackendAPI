@@ -9,26 +9,29 @@ if (!sessionStorage.getItem('userEmail')) {
     document.querySelector(".lastname").innerText = `Efternavn: ${sessionStorage.getItem('userLastname')}`;
     //Add ^ to my favorites when done
 }
-
+//DOM
 const favoriteList = document.querySelector('.favorite-list')
 const userId = sessionStorage.getItem('userId')
+//Api url sorting by who is logged in from session storage
 const apiURL = `http://localhost:3000/favorites?user_id=${userId}`;
 
+//Fetch that gets info of the favorites table by the user that is logged in
 fetch(apiURL, { method: 'GET' })
     .then(response => response.json())
     .then(favoriteData => {
-
+        //Clear html
         favoriteList.innerHTML = '';
 
         if (favoriteData.length > 0) {
+            //For each cafe insert data
             favoriteData.forEach(cafe => {
-
+                //Create elements for data
                 const favoriteContainer = document.createElement('div');
                 favoriteContainer.classList.add('favorite-container');
 
                 const favoriteInfoElement = document.createElement('div');
                 favoriteInfoElement.classList.add('cafe-info');
-
+                //Info is p tags with data from MySQL
                 favoriteInfoElement.innerHTML = `
                               <p>${cafe.cafe_name}</p>
                               <p> </p>
@@ -40,9 +43,8 @@ fetch(apiURL, { method: 'GET' })
                               <p>Wi-Fi: ${cafe.wifi === 1 ? 'Ja' : 'Nej'}</p>
                               <p>Info: ${cafe.info}</p>
                             `;
-
+                //Append data to html
                 favoriteContainer.appendChild(favoriteInfoElement);
-
                 favoriteList.appendChild(favoriteContainer);
             });
         } else {

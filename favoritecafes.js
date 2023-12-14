@@ -7,7 +7,7 @@ if (!sessionStorage.getItem('userEmail')) {
 
 let storedUserId = sessionStorage.getItem("userId")
 const allCafesList = document.querySelector('.all-cafes');
-
+//api urls
 const detailsURL = 'http://localhost:3000/details'
 const favoritesURL = 'http://localhost:3000/new/favorite'
 const ratingURL = 'http://localhost:3000/rating'
@@ -17,11 +17,13 @@ const ratingsURL = 'http://localhost:3000/save/rating'
 fetch(detailsURL, { method: 'GET' })
     .then(response => response.json())
     .then(cafeData => {
-
+        //Clear html
         allCafesList.innerHTML = '';
 
         if (cafeData.length > 0) {
+            //Insert data for each cafe found
             cafeData.forEach(cafe => {
+                //Create elements to put data into
                 const allCafesContainer = document.createElement('div');
                 allCafesContainer.classList.add('all-cafes-container');
                 allCafesContainer.setAttribute('id', cafe.cafe_id)
@@ -29,7 +31,7 @@ fetch(detailsURL, { method: 'GET' })
                 const allCafesCafeInfo = document.createElement('div');
                 allCafesCafeInfo.classList.add('all-cafes-info') ;
 
-
+                //Cafe info is p tags with data from MySQL
                 allCafesCafeInfo.innerHTML = `
                       <p>${cafe.cafe_name}</p>
                       <p> </p>
@@ -60,20 +62,19 @@ fetch(detailsURL, { method: 'GET' })
                 allCafesList.appendChild(allCafesContainer)
                 allCafesContainer.appendChild(ratings);
 
-
+                //Coffeebutton on each cafe
                 const coffeeButton = document.createElement('div');
                 coffeeButton.classList.add('coffee-button')
                 coffeeButton.classList.add('unfavorite')
                 coffeeButton.innerHTML = '☕️'
-
+                //Event listener for the buttons
                 coffeeButton.addEventListener('click', () => {
+                    //If coffee button has the unfavorite class and is clicked: remove class
                     if (coffeeButton.classList.contains('unfavorite')) {
                         coffeeButton.classList.remove('unfavorite');
+                        //Move the container which button was clicked to the front of allCafesList
                         allCafesList.insertBefore(allCafesContainer, allCafesList.firstChild);
-                        console.log(JSON.stringify({
-                            user_id: sessionStorage.getItem('userId'),
-                            cafe_id: cafe.cafe_id,
-                        }))
+                        //Post the user_id of the logged in user and the cafe_id of the clicked cafe
                         fetch(favoritesURL, {
                             method: "POST",
                             headers: {
@@ -94,9 +95,11 @@ fetch(detailsURL, { method: 'GET' })
                                 }
                         })
                     } else {
+                        //If coffee button doesn't have the unfavorite class, add it on click
                         coffeeButton.classList.add('unfavorite');
+                        //And push it to the end of the list
                         allCafesList.appendChild(allCafesContainer)
-
+                        //Delete the row in MySQL with the cafe_id of the clicked cafe
                         fetch(deleteFavoritesURL, {
                             method: "DELETE",
                             headers: {
@@ -116,7 +119,7 @@ fetch(detailsURL, { method: 'GET' })
                             })
                     }
                 })
-
+                //Append coffee button and cafe info to html
                 allCafesContainer.appendChild(coffeeButton)
                 allCafesContainer.appendChild(allCafesCafeInfo);
 

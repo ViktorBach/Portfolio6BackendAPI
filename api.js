@@ -161,6 +161,7 @@ app.get('/details/:cafe_id', (req,res)=>{
         });
 });
 
+//Get info from details table with opening and closing hours being <= and >=
 app.get('/listfilter',(req,res) =>{
     const open = req.query.opening_hours;
     const close = req.query.closing_hours;
@@ -175,6 +176,7 @@ app.get('/listfilter',(req,res) =>{
     });
 });
 
+//Get all data from details inner joined with cafes
 app.get('/details', (req, res) => {
     connection.query('SELECT * FROM details INNER JOIN cafes ON cafes.cafe_id = details.cafe_id',
         (error, results) => {
@@ -194,6 +196,7 @@ app.get('/cafes/search', (req,res)=>{
         });
 });
 
+//Get favorites with user_id
 app.get('/favorites', (req, res) => {
     const userId = req.query.user_id;
 
@@ -333,6 +336,7 @@ app.post('/rating', (req, res) => {
     )
 })
 
+//If no endpoints are found, 404 error
 app.get('*',(req,res) =>{
     res.sendStatus(404);
 });
