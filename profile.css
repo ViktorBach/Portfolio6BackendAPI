@@ -10,6 +10,7 @@
 
 body {
     background-color: #f5efe8;
+    text-align: center;
 }
 
 nav {
@@ -85,8 +86,7 @@ h2 {
     margin-bottom: 20px;
 }
 .profile {
-    margin-right: 180px;
-    margin-left: 300px;
+    margin-left: 40px;
 }
 
 .favorite-container {
@@ -101,7 +101,7 @@ h2 {
 }
 
 .favorites {
-    margin-left: 180px;
+
 }
 
 ul li {

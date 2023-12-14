@@ -70,7 +70,6 @@ app.post('/login', (req, res) => {
                 if (isPasswordCorrect) {
                     console.log("User logged in: " + results[0].user_email);
                     return res.status(200).json({success: true, email: results[0].user_email, name: results[0].user_firstname, lastname: results[0].user_lastname, userId: results[0].user_id});
-
                 } else {
                     console.log("Login attempt was made, but password don't match");
                     return res.status(401).json({success: false, message: "Forkert Email og/eller Password"});
