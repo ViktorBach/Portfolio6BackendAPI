@@ -12,7 +12,6 @@ const detailsURL = 'http://localhost:3000/details'
 const favoritesURL = 'http://localhost:3000/new/favorite'
 const ratingURL = 'http://localhost:3000/rating'
 const deleteFavoritesURL = 'http://localhost:3000/delete/favorite'
-const ratingsURL = 'http://localhost:3000/save/rating'
 
 fetch(detailsURL, { method: 'GET' })
     .then(response => response.json())
@@ -27,8 +26,7 @@ fetch(detailsURL, { method: 'GET' })
                 allCafesContainer.setAttribute('id', cafe.cafe_id)
 
                 const allCafesCafeInfo = document.createElement('div');
-                allCafesCafeInfo.classList.add('all-cafes-info') ;
-
+                allCafesCafeInfo.classList.add('all-cafes-info');
 
                 allCafesCafeInfo.innerHTML = `
                       <p>${cafe.cafe_name}</p>
@@ -50,6 +48,7 @@ fetch(detailsURL, { method: 'GET' })
                 ratingsContainer.append(ratings);
                 ratings.classList.add('ratings');
 
+                //Adding stars with HTML unicode
                 ratings.innerHTML = `
                 <span data-rating="5">&#9733;</span>
                 <span data-rating="4">&#9733;</span>
@@ -57,9 +56,9 @@ fetch(detailsURL, { method: 'GET' })
                 <span data-rating="2">&#9733;</span>
                 <span data-rating="1">&#9733;</span>
                 `;
+
                 allCafesList.appendChild(allCafesContainer)
                 allCafesContainer.appendChild(ratings);
-
 
                 const coffeeButton = document.createElement('div');
                 coffeeButton.classList.add('coffee-button')
@@ -116,12 +115,10 @@ fetch(detailsURL, { method: 'GET' })
                             })
                     }
                 })
-
                 allCafesContainer.appendChild(coffeeButton)
                 allCafesContainer.appendChild(allCafesCafeInfo);
-
-
             });
+            //Calling addRating function
             addRating(cafeData)
             } else {
             console.log("no cafes returned");
@@ -135,8 +132,8 @@ function addRating(cafeData) {
     let ratingStars =  document.querySelectorAll('.ratings')
 
     ratingStars.forEach((starContainer, index) => {
+        //Select all 'span' elements within the current 'ratings' container
         let stars = starContainer.querySelectorAll('span')
-
         stars.forEach((star) => {
             star.addEventListener("click",() => {
 
@@ -158,6 +155,7 @@ function addRating(cafeData) {
                 }).then(response => response.text())
                     .then((ok) => {
                         console.log(ok);
+                        //Adding class for CSS
                         star.setAttribute('data-clicked', '');
                     })
             })
@@ -179,8 +177,7 @@ const cafesContainer = document.querySelector(".all-cafes");
 const listOfAllCafes = cafesContainer.querySelectorAll("div")
 
 listOfAllCafes.forEach((cafe) => {
-    let infoDiv = cafe.querySelector(".all-cafes-info");
-
+    cafe.querySelector(".all-cafes-info");
 })
 
 

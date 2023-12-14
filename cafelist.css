@@ -99,6 +99,7 @@ label {
 select {
     margin: 10px;
     display: block;
+    padding: 3px;
 }
 
 .cafe-container {
@@ -140,8 +141,8 @@ select {
 .list-of-cafes ul {
     display: flex;
     justify-content: center;
-    margin-top: 40px;
+    margin-top: 50px;
 }
 .main-content label {
-    margin-top: 11px;
+    margin-top: 16px;
 }

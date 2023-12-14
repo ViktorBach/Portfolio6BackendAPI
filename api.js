@@ -182,18 +182,6 @@ app.get('/details', (req, res) => {
         });
 });
 
-//Search cafes by city
-//Search example: /cafes/search?city=København
-app.get('/cafes/search', (req,res)=>{
-    const city = req.query.city;
-
-    connection.query('SELECT cafe_name, city, address FROM cafes INNER JOIN details ON details.cafe_id = cafes.cafe_id WHERE city = ?',
-        [city],
-        (error, results)=>{
-            res.send(results);
-        });
-});
-
 app.get('/favorites', (req, res) => {
     const userId = req.query.user_id;
 
@@ -332,6 +320,17 @@ app.post('/rating', (req, res) => {
         }
     )
 })
+
+//Get average rating
+app.get('/average/rating', (req, res) => {
+    const cafeId = req.params.cafe_id;
+    connection.query('SELECT AVG(ratings.rating_value) AS average_rating FROM ratings WHERE cafe_id = ?',
+        [cafeId],
+        (error, result) => {
+        res.send(result)
+    });
+});
+
 
 app.get('*',(req,res) =>{
     res.sendStatus(404);
