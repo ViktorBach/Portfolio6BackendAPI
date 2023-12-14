@@ -12,6 +12,7 @@ const detailsURL = 'http://localhost:3000/details'
 const favoritesURL = 'http://localhost:3000/new/favorite'
 const ratingURL = 'http://localhost:3000/rating'
 const deleteFavoritesURL = 'http://localhost:3000/delete/favorite'
+const ratingsURL = 'http://localhost:3000/save/rating'
 
 fetch(detailsURL, { method: 'GET' })
     .then(response => response.json())
@@ -118,7 +119,6 @@ fetch(detailsURL, { method: 'GET' })
 
                 allCafesContainer.appendChild(coffeeButton)
                 allCafesContainer.appendChild(allCafesCafeInfo);
-
 
 
             });
