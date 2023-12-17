@@ -12,7 +12,19 @@ const detailsURL = 'http://localhost:3000/details'
 const favoritesURL = 'http://localhost:3000/new/favorite'
 const ratingURL = 'http://localhost:3000/rating'
 const deleteFavoritesURL = 'http://localhost:3000/delete/favorite'
+//const favoritesDataURL = `http://localhost:3000/favorites?user_id=${storedUserId}`
+const ratingsURL = 'http://localhost:3000/save/rating'
 
+/*fetch(favoritesDataURL,
+    { method: 'GET' })
+    .then(response => response.json())
+    .then(favoritesData => {
+        if (favoritesData) {
+            console.log(favoritesData)
+            checkFavorite(favoritesData);
+        }
+    })
+*/
 fetch(detailsURL, { method: 'GET' })
     .then(response => response.json())
     .then(cafeData => {
@@ -87,9 +99,9 @@ fetch(detailsURL, { method: 'GET' })
                             })
                         })
                             .then(response => response.json())
-                            .then(favouritesData => {
-                                console.log(favouritesData);
-                                if (!favouritesData) {
+                            .then(favoritesData => {
+                                console.log(favoritesData);
+                                if (!favoritesData) {
                                     console.log("This cafe is already favorited!");
                                 } else {
                                     console.log("Cafe successfully favorited!");
@@ -141,6 +153,7 @@ function addRating(cafeData) {
     ratingStars.forEach((starContainer, index) => {
         //Select all 'span' elements within the current 'ratings' container
         let stars = starContainer.querySelectorAll('span')
+
         stars.forEach((star) => {
             star.addEventListener("click",() => {
 
@@ -188,4 +201,21 @@ listOfAllCafes.forEach((cafe) => {
 
 })
 
+/*function checkFavorite(listOfFavForCurrentUser) {
+    listOfFavForCurrentUser.forEach((cafe) => {
+        let currentCafeID = cafe.cafe_id;
 
+        // Check if the cafe_id exists in the document
+        let currentCafeDiv = document.getElementById(currentCafeID);
+
+        if (currentCafeDiv) {
+            let coffeeFavButton = currentCafeDiv.querySelector(".coffee-button");
+
+            // Check if the coffee button exists before toggling the class
+            if (coffeeFavButton) {
+                coffeeFavButton.classList.toggle("unfavorite");
+            }
+        }
+    });
+}
+*/
